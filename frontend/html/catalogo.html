@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo</title>
+    <!-- Estilos Externos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../css/catalogo.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/acessibilidade.css" />
+</head>
+<header><div class="acessibilidade">
+        <div class="acessibilidade">
+          <button onclick="alterarFonte('+')">A+</button>
+          <button onclick="alterarFonte('-')">A-</button>
+          <button onclick="alterarFonte('reset')">A</button>
+        </div>
+      </div></header>
+
+<body>
+    <!-- Menu Hambúrguer -->
+    <div id="menu-toggle" class="menu-toggle" aria-label="Abrir menu de navegação">
+        <i class="fa-solid fa-bars"></i>
+    </div>
+    <div id="sidebar" class="sidebar" aria-label="Menu lateral">
+        <ul class="menu-items">
+            <li>
+                <a href="#" data-section="catalogo" class="active" aria-label="Ir para catálogo">
+                    <i class="fa-solid fa-store"></i> Catálogo
+                </a>
+            </li>
+            <li>
+                <a href="#" data-section="perfil" aria-label="Ir para perfil">
+                    <i class="fa-regular fa-circle-user"></i> Perfil
+                </a>
+            </li>
+            <li>
+                <a href="#" data-section="pedidos" aria-label="Ver pedidos">
+                    <i class="fa-solid fa-shopping-cart"></i> Pedidos
+                </a>
+            </li>
+            <li>
+                <a href="#" data-section="logout" aria-label="Sair">
+                    <i class="fa-solid fa-sign-out-alt"></i> Logout
+                </a>
+            </li>
+            <li id="admin-link" style="display: none;">
+                <a href="#" data-section="admin" aria-label="Acessar área administrativa">
+                    <i class="fa-solid fa-user-shield"></i> Acesso Admin
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div id="overlay" class="overlay"></div>
+
+    <!-- Cabeçalho -->
+    <header>
+        <h1>Produtos da Conveniência</h1>
+    </header>
+
+    <!-- Navegação -->
+    <nav class="navbar" aria-label="Navegação principal">
+        <div class="navbar-left">
+            <span class="nav__usuario" id="userGreeting">Olá, Usuário</span>
+        </div>
+        <div class="navbar-center">
+            <input type="search" id="busca-produto" placeholder="Buscar por nome..."
+                aria-label="Buscar produtos por nome" required>
+            <select id="filtro-categoria" aria-label="Filtrar por categoria">
+                <option value="">Todas as Categorias</option>
+                <option value="bebidas">Bebidas</option>
+                <option value="alimentos">Alimentos</option>
+                <option value="outros">Outros</option>
+            </select>
+            <button id="btn-buscar" type="button" aria-label="Executar busca">Buscar</button>
+        </div>
+        <div class="navbar-right"></div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <section class="container" aria-label="Conteúdo principal">
+        <div class="container-itens" id="container-itens" role="list">
+            <!-- Itens serão carregados dinamicamente aqui -->
+        </div>
+        <aside class="carrinho" id="carrinho" aria-label="Carrinho de compras">
+            <div class="header-carrinho">
+                <h2>Seu Carrinho</h2>
+            </div>
+            <div class="carrinho-itens" role="list">
+                <!-- Itens do carrinho serão carregados dinamicamente aqui -->
+            </div>
+            <div class="carrinho-total">
+                <div class="linha">
+                    <strong>Valor Total</strong>
+                    <span class="carrinho-preco-total" aria-live="polite">R$ 0,00</span>
+                </div>
+                <button class="btn-pagar" type="button" aria-label="Finalizar compra">
+                    Pagar <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i>
+                </button>
+            </div>
+        </aside>
+    </section>
+
+    <!-- Scripts -->
+    <script src="../js/catalogo.js" async></script>
+
+    <!-- VLibras (Acessibilidade) -->
+    <div vw class="enabled">
+        <div vw-access-button class="active" aria-label="Ativar acessibilidade VLibras"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget("https://vlibras.gov.br/app");
+    </script>
+ <script src="../js/acessibilidade.js"></script>
+</body>
+
+</html>

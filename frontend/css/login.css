@@ -1,0 +1,433 @@
+/* Importação de Fonte */
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+/* Estilos Gerais */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+/* Corpo com background */
+body.background {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.581), rgba(0, 0, 0, 0.575)),
+    url("../../images/backgroundlogin.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+/* Cabeçalho */
+header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  color: #ffffff;
+  max-height: 12vh;
+}
+
+/* Navegação */
+nav {
+  display: flex;
+  align-items: center;
+}
+
+ul {
+  display: flex;
+  background-color: #1f2a44;
+  list-style-type: none;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+li a {
+  display: block;
+  color: white;
+  padding: 14px 16px;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+li a:hover {
+  background-color: #3b82f6;
+  border-radius: 15px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.575);
+  color: black;
+}
+
+/* Container */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Acessibilidade - vw */
+[vw] {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+}
+
+/* Box de Login/Registro */
+.box {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  padding: 60px 20px 30px 20px;
+  height: 700px;
+  width: 380px;
+  border-radius: 30px;
+  background-color: #fff;
+  border: 3px solid #fafafa;
+  overflow: hidden;
+  opacity: 1;
+}
+
+/* Formulários */
+.box-login {
+  position: absolute;
+  width: 85%;
+  left: 27px;
+  transition: 0.5s ease-in-out;
+}
+
+.box-register {
+  position: absolute;
+  width: 85%;
+  right: -350px;
+  transition: 0.5s ease-in-out;
+}
+
+/* Cabeçalho Formulário */
+.top-header {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.logo {
+  width: 40%;
+}
+
+.top-header h3 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+/* Inputs */
+.input-group {
+  width: 100%;
+}
+
+.input-field {
+  margin: 12px 0;
+  position: relative;
+}
+
+.input-box {
+  width: 100%;
+  height: 50px;
+  font-size: 15px;
+  color: #040404;
+  border: none;
+  border-radius: 10px;
+  padding: 7px 45px 0 20px;
+  background: rgba(192, 192, 192, 0.719);
+  backdrop-filter: blur(2px);
+  outline: none;
+}
+
+.input-field label {
+  position: absolute;
+  left: 20px;
+  top: 15px;
+  font-size: 15px;
+  transition: 0.3s ease-in-out;
+}
+
+.input-box:focus ~ label,
+.input-box:valid ~ label {
+  top: 2px;
+  font-size: 10px;
+  color: #000;
+  font-weight: 500;
+}
+
+/* Lembrete e Submit */
+.remember {
+  display: flex;
+  font-size: 13px;
+  margin: 12px 0 30px 0;
+  color: #000;
+}
+
+.check {
+  margin-right: 8px;
+  width: 14px;
+}
+
+.input-submit {
+  width: 100%;
+  height: 50px;
+  font-size: 15px;
+  font-weight: 500;
+  border: none;
+  border-radius: 10px;
+  background: #29f143;
+  color: #080808;
+  box-shadow: 0px 4px 20px rgba(62, 9, 9, 0.144);
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+.input-submit:hover {
+  background: #29f143;
+  box-shadow: 0px 4px 20px rgba(62, 9, 9, 0.32);
+}
+
+/* Esqueci a Senha */
+.forgot {
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.forgot a {
+  text-decoration: none;
+  color: #000;
+}
+
+/* Alternância Login/Registro */
+.switch {
+  display: flex;
+  position: absolute;
+  bottom: 50px;
+  left: 25px;
+  width: 85%;
+  height: 50px;
+  background: rgba(75, 74, 74, 0.16);
+  backdrop-filter: 10px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.switch a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: #000;
+  text-decoration: none;
+  width: 50%;
+  height: 50px;
+  border-radius: 10px;
+  z-index: 10;
+}
+
+#btn {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  width: 145px;
+  height: 50px;
+  background: #acacad;
+  border-radius: 10px;
+  box-shadow: 2px 0px 12px rgba(0, 0, 0, 0.1);
+  transition: 0.5s ease-in-out;
+}
+
+/* Ícones de Senha */
+.eye-area {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+}
+
+.eye-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+i {
+  position: absolute;
+  color: #444;
+  cursor: pointer;
+}
+
+#eye,
+#eye-2 {
+  opacity: 1;
+}
+
+#eye-slash,
+#eye-slash-2,
+#eye-slash-3 {
+  opacity: 0;
+}
+
+/* Mensagens de Erro */
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+/* Responsividade */
+/* Telas pequenas (mobile até 480px) */
+@media (max-width: 480px) {
+  .box {
+    width: 92%;
+    padding: 25px 12px 20px;
+    min-height: 440px;
+  }
+
+  .logo {
+    width: 60%;
+    max-width: 75px;
+    margin: 0 auto;
+  }
+
+  .top-header h3 {
+    font-size: 1rem;
+  }
+
+  .input-box {
+    height: 40px;
+    font-size: 0.85rem;
+    padding: 5px 32px 0 10px;
+  }
+
+  .input-field label {
+    left: 10px;
+    top: 12px;
+    font-size: 0.8rem;
+  }
+
+  .remember {
+    font-size: 0.75rem;
+    margin: 10px 0 20px;
+  }
+
+  .check {
+    width: 12px;
+  }
+
+  .input-submit {
+    height: 42px;
+    font-size: 0.9rem;
+  }
+
+  .switch {
+    width: 90%;
+    height: 40px;
+  }
+
+  .switch a {
+    font-size: 0.8rem;
+  }
+
+  #btn {
+    width: 50%;
+    height: 100%;
+  }
+
+  .eye-area {
+    top: 18px;
+    right: 12px;
+  }
+
+  i {
+    font-size: 14px;
+  }
+}
+
+/* Telas médias (smartphones grandes e tablets pequenos) */
+@media (max-width: 768px) {
+  .box {
+    width: 85%;
+    padding: 35px 15px 25px;
+    min-height: 500px;
+  }
+
+  .logo {
+    width: 45%;
+    max-width: 90px;
+    margin: 0 auto;
+  }
+
+  .top-header h3 {
+    font-size: 1.2rem;
+  }
+
+  .input-box {
+    height: 45px;
+    font-size: 0.95rem;
+    padding: 6px 38px 0 14px;
+  }
+
+  .input-field label {
+    left: 14px;
+    top: 13px;
+  }
+
+  .switch {
+    width: 90%;
+    height: 45px;
+  }
+
+  #btn {
+    width: 50%;
+    height: 100%;
+  }
+
+  .eye-area {
+    top: 22px;
+    right: 20px;
+  }
+}
+
+/* Telas grandes (tablets e desktops pequenos) */
+@media (max-width: 991px) {
+  .box {
+    width: 400px;
+    padding: 45px 20px;
+  }
+
+  .logo {
+    width: 40%;
+    max-width: 100px;
+  }
+
+  .top-header h3 {
+    font-size: 1.3rem;
+  }
+
+  .input-box {
+    font-size: 1rem;
+    height: 48px;
+  }
+
+  .input-submit {
+    height: 48px;
+    font-size: 1rem;
+  }
+
+  .switch {
+    width: 85%;
+  }
+
+  #btn {
+    width: 50%;
+  }
+}
+

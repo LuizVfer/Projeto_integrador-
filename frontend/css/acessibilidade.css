@@ -1,0 +1,32 @@
+.acessibilidade {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 5px;
+  flex-shrink: 1;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+.acessibilidade button {
+  background-color: #183069;
+  border: none;
+  color: white;
+  padding: 1px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  margin: 1px 1px;
+  cursor: pointer;
+  border-radius: 6px;
+  flex-shrink: 1;
+}
+
+.acessibilidade button:hover {
+  background-color: #3b82f6;
+  border-radius: 15px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.575);
+  flex-shrink: 1;
+  transition: background-color 0.3s ease;
+  color: black;
+}

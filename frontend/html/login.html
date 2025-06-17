@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="../../images/favicon.ico"
+      type="image/x-icon"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="../css/login.css" />
+      <link rel="stylesheet" href="../css/acessibilidade.css" />
+  
+    <title>Login</title>
+  </head>
+  <header>
+    <div class="acessibilidade">
+       <nav>
+        <ul>
+          <li>
+            <a href="home.html" target="_blank" rel="noopener noreferrer"
+              >QRUp</a
+            >
+          </li>
+        </ul>
+      </nav>
+        <div class="acessibilidade">
+          <button onclick="alterarFonte('+')">A+</button>
+          <button onclick="alterarFonte('-')">A-</button>
+          <button onclick="alterarFonte('reset')">A</button>
+        </div>
+        
+      </div></header>
+  <body class="background">
+    <div class="overlay"></div>
+    <div class="container">
+      <div
+        class="box"
+        role="dialog"
+        aria-label="Formulários de login e cadastro"
+      >
+        <section class="box-login" id="login">
+          <div class="top-header">
+            <img src="../../images/QRUP2 1.svg" alt="Logo QRUP" class="logo" />
+            <h3>Bem-vindo à QRUP!</h3>
+            <small>Estamos felizes por ter você aqui.</small>
+          </div>
+          <form novalidate>
+            <div class="input-group">
+              <div class="input-field">
+                <input
+                  type="email"
+                  class="input-box"
+                  id="loginEmail"
+                  required
+                  aria-label="Endereço de email"
+                />
+                <label for="loginEmail">Endereço de Email</label>
+                <div
+                  id="loginEmailError"
+                  class="error-message"
+                  role="alert"
+                ></div>
+              </div>
+              <div class="input-field">
+                <input
+                  type="password"
+                  class="input-box"
+                  id="loginPassword"
+                  required
+                  aria-label="Senha"
+                />
+                <label for="loginPassword">Senha</label>
+                <div
+                  id="loginPasswordError"
+                  class="error-message"
+                  role="alert"
+                ></div>
+                <div class="eye-area">
+                  <button
+                    type="button"
+                    class="eye-box"
+                    onclick="myLogPassword()"
+                    aria-label="Mostrar ou ocultar senha"
+                  >
+                    <i
+                      class="fa-regular fa-eye"
+                      id="eye"
+                      aria-hidden="true"
+                    ></i>
+                    <i
+                      class="fa-regular fa-eye-slash"
+                      id="eye-slash"
+                      aria-hidden="true"
+                    ></i>
+                  </button>
+                </div>
+              </div>
+              <div class="remember">
+                <input type="checkbox" id="rememberMe" class="check" />
+                <label for="rememberMe">Lembrar-se</label>
+              </div>
+              <div class="input-field">
+                <button
+                  type="submit"
+                  class="input-submit"
+                  aria-label="Fazer login"
+                >
+                  Logar
+                </button>
+              </div>
+              <div class="forgot">
+                <a
+                  href="recuperacao.html"
+                  aria-label="Recuperar senha esquecida"
+                  >Esqueceu a senha?</a
+                >
+              </div>
+            </div>
+          </form>
+        </section>
+
+        <section class="box-register" id="register">
+          <div class="top-header">
+            <h3>Cadastre-se Agora!</h3>
+            <small>Estamos felizes em ter você aqui.</small>
+          </div>
+          <form novalidate>
+            <div class="input-group">
+              <div class="input-field">
+                <input
+                  type="text"
+                  class="input-box"
+                  id="regUsername"
+                  required
+                  aria-label="Nome do usuário"
+                />
+                <label for="regUsername">Nome do Usuário</label>
+                <div
+                  id="regUsernameError"
+                  class="error-message"
+                  role="alert"
+                ></div>
+              </div>
+              <div class="input-field">
+                <input
+                  type="email"
+                  class="input-box"
+                  id="regEmail"
+                  required
+                  aria-label="Endereço de email"
+                />
+                <label for="regEmail">Endereço de Email</label>
+                <div
+                  id="regEmailError"
+                  class="error-message"
+                  role="alert"
+                ></div>
+              </div>
+              <div class="input-field">
+                <input
+                  type="password"
+                  class="input-box"
+                  id="regPassword"
+                  required
+                  aria-label="Senha"
+                />
+                <label for="regPassword">Senha</label>
+                <div
+                  id="regPasswordError"
+                  class="error-message"
+                  role="alert"
+                ></div>
+                <div class="eye-area">
+                  <button
+                    type="button"
+                    class="eye-box"
+                    onclick="myRegPassword()"
+                    aria-label="Mostrar ou ocultar senha"
+                  >
+                    <i
+                      class="fa-regular fa-eye"
+                      id="eye-2"
+                      aria-hidden="true"
+                    ></i>
+                    <i
+                      class="fa-regular fa-eye-slash"
+                      id="eye-slash-2"
+                      aria-hidden="true"
+                    ></i>
+                  </button>
+                </div>
+              </div>
+              <div class="input-field">
+                <input
+                  type="password"
+                  class="input-box"
+                  id="regConfirmPassword"
+                  required
+                  aria-label="Confirmar senha"
+                />
+                <label for="regConfirmPassword">Confirmar Senha</label>
+                <div
+                  id="regConfirmPasswordError"
+                  class="error-message"
+                  role="alert"
+                ></div>
+                <div class="eye-area">
+                  <button
+                    type="button"
+                    class="eye-box"
+                    onclick="myRegConfirmPassword()"
+                    aria-label="Mostrar ou ocultar confirmação de senha"
+                  >
+                    <i
+                      class="fa-regular fa-eye"
+                      id="eye-3"
+                      aria-hidden="true"
+                    ></i>
+                    <i
+                      class="fa-regular fa-eye-slash"
+                      id="eye-slash-3"
+                      aria-hidden="true"
+                    ></i>
+                  </button>
+                </div>
+              </div>
+              <div class="input-field">
+                <button
+                  type="submit"
+                  class="input-submit"
+                  aria-label="Cadastrar-se"
+                >
+                  Cadastrar-se
+                </button>
+              </div>
+            </div>
+          </form>
+        </section>
+
+        <nav class="switch" aria-label="Alternar entre login e cadastro">
+          <a
+            href="#"
+            class="login active"
+            onclick="login()"
+            aria-label="Exibir formulário de login"
+            >Logar</a
+          >
+          <a
+            href="#"
+            class="register"
+            onclick="register()"
+            aria-label="Exibir formulário de cadastro"
+            >Cadastrar</a
+          >
+          <div class="btn-active" id="btn" aria-hidden="true"></div>
+        </nav>
+      </div>
+    </div>
+    <script src="../js/login.js"></script>
+    <div vw class="enabled">
+      <div
+        vw-access-button
+        class="active"
+        aria-label="Ativar acessibilidade VLibras"
+      ></div>
+      <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
+      </div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+      new window.VLibras.Widget("https://vlibras.gov.br/app");
+    </script>
+     <script src="../js/acessibilidade.js"></script>
+  </body>
+</html>

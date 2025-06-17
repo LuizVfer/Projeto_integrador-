@@ -1,0 +1,172 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+body.background {
+  background: url("../../images/backgroundlogin.png") no-repeat center center fixed;
+  background-size: cover;
+  background-color: rgb(0, 0, 0);
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgb(0, 0, 0);
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  position: relative;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding: 60px 20px 30px 20px;
+  width: 380px;
+  border-radius: 30px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 3px solid rgba(250, 250, 250, 0.9);
+  opacity: 1;
+}
+
+.top-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.top-header h3 {
+  font-size: 26px; /* Aumentado para melhor legibilidade */
+  font-weight: 600;
+  color: #333; /* Tom mais escuro */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Sombra leve */
+}
+
+.input-group {
+  width: 100%;
+}
+
+.input-field {
+  margin: 12px 0;
+  position: relative;
+}
+
+.input-box {
+  width: 100%;
+  height: 50px;
+  font-size: 18px; /* Aumentado para melhor legibilidade */
+  color: #040404; /* Mantenha um tom escuro */
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px; /* Aumentado o padding */
+  background: rgba(192, 192, 192, 0.719);
+  transition: 0.3s ease-in-out;
+  outline: none;
+}
+
+.input-field label {
+  position: absolute;
+  left: 20px;
+  top: 15px;
+  font-size: 15px;
+  transition: 0.3s ease-in-out;
+  color: #666; /* Cor de texto mais suave */
+}
+
+.input-box:focus ~ label,
+.input-box:valid ~ label {
+  top: 2px;
+  font-size: 12px; /* Aumentado para melhor legibilidade */
+  color: #000000;
+  font-weight: 500;
+}
+
+.input-submit {
+  width: 100%;
+  height: 50px;
+  font-size: 18px; /* Aumentado para melhor legibilidade */
+  font-weight: 500;
+  border: none;
+  border-radius: 10px;
+  background: #29f143;
+  color: #080808;
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+.eye-area {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+}
+
+.eye-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+i {
+  position: absolute;
+  color: #444444;
+  cursor: pointer;
+}
+
+#eye-1,
+#eye-2 {
+  opacity: 1;
+}
+
+#eye-slash-1,
+#eye-slash-2 {
+  opacity: 0;
+}
+
+.input-submit:hover {
+  background: #1de136;
+  box-shadow: 0px 4px 20px rgba(62, 9, 9, 0.32);
+}
+
+.back-to-login {
+  text-align: center;
+  font-size: 16px; /* Aumentado para melhor legibilidade */
+  font-weight: 600;
+  margin-top: 20px;
+}
+
+.back-to-login a {
+  text-decoration: none;
+  color: #000;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px; /* Aumentado para melhor legibilidade */
+  margin-top: 5px;
+}
+
+[vw] {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+}
+
+@media only screen and (max-width: 576px) {
+  .box {
+    margin: 0 5px;
+  }
+}

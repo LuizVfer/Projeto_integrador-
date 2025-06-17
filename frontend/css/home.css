@@ -1,0 +1,262 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Open Sans", "Roboto", sans-serif;
+}
+
+body {
+  background-image: url("/images/logo_2.jpg");
+  background-size: cover;
+  background-position: center;
+  color: #f9f8f8;
+  overflow-x: hidden;
+  min-height: 100vh;
+  width: 100%;
+  z-index: -1;
+  font-size: 100%;
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  background: #bfc6d7fb;
+  color: #ffffff;
+  padding: 1rem 1rem 1.2rem 1.5rem;
+  text-align: center;
+  justify-content: space-between;
+  max-height: 18%;
+  flex-flow: row wrap;
+  flex-shrink: 1;
+  flex-grow: 1;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1), 10px 10px 10px rgba(10, 14, 63, 0.744);
+}
+
+header img {
+  width: 80px;
+  height: 80px;
+  margin-right: 20px;
+  border-radius: 50%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  opacity: 0.8;
+  transition: opacity 1s ease;
+}
+
+nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-shrink: 1;
+  flex-grow: 1;
+  border-radius: 15px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  justify-content: space-between;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #1f2a44;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-shrink: 1;
+  border-radius: 15px;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+li a:hover {
+  background-color: #3b82f6;
+  border-radius: 15px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.575);
+  color: black;
+}
+
+.hero {
+  display: flex;
+  background-color: rgb(46, 55, 64);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1rem;
+  height: 35vh;
+  max-width: 40vw;
+  border-radius: 15px;
+  margin: 10px;
+  box-shadow: 0 2px 10px rgba(111, 107, 202, 0.244);
+  flex-flow: row wrap;
+  gap: 1px;
+  overflow: hidden;
+}
+
+.hero h1 {
+  font-size: 2em;
+  color: #2c1ecf;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  margin-top: -45px;
+}
+
+.hero p {
+  font-size: 1em;
+  color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  overflow-wrap: break-word;
+  text-align: justify;
+  margin-top: -80px;
+}
+
+.sobre {
+  display: flex;
+  background-color: rgb(46, 55, 64);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1rem;
+  min-height: 35vh;
+  max-width: 40vw;
+  border-radius: 15px;
+  box-shadow: 0 2px 10px rgba(111, 107, 202, 0.244);
+  flex-flow: row wrap;
+  gap: 1px;
+  overflow: hidden;
+  margin-left: 55%;
+  margin-top: -5%;
+}
+
+.sobre h2 {
+  font-size: 1.5em;
+  color: #2c1ecf;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  margin-top: -5px;
+}
+
+.sobre p {
+  font-size: 1em;
+  color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  overflow-wrap: break-word;
+  text-align: justify;
+}
+
+footer {
+  background-color: #1f2a44;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.fundadores h2 {
+  position: absolute;
+  font-size: 2em;
+  color: #2c1ecf;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  bottom: 18%;
+}
+
+.fundadores-container {
+  display: flex;
+  justify-content: start;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.fundador {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.fundador img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-bottom: 0.5rem;
+}
+
+.fundador > img:hover {
+  transform: scale(1.1);
+}
+
+/* RESPONSIVO */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  nav,
+  ul {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .fundadores {
+    display: flex;
+    width: 90vw;
+    height: auto;
+    margin: 10px auto;
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .fundadores > h2 {
+    position: static;
+    margin-top: 0;
+    font-size: 1em;
+    text-align: center;
+    margin-bottom: 1em;
+  }
+
+  .fundadores-container {
+    justify-content: center;
+  }
+
+  .hero,
+  .sobre {
+    width: 90vw;
+    height: auto;
+    margin: 10px auto;
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .sobre {
+    margin-left: auto;
+  }
+
+  .hero h1,
+  .hero p,
+  .sobre h2,
+  .sobre p {
+    margin-top: 0;
+    font-size: 1em;
+    text-align: center;
+  }
+
+  .acessibilidade {
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  body {
+    background-position: top;
+    min-height: 100vh;
+    width: 100%;
+  }
+}

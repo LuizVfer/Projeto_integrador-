@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../css/AdminDashboard.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/acessibilidade.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
+    <title>Painel Administrativo</title>
+</head>
+
+<body>
+    <header>
+        <button id="menu-toggle" class="menu-toggle" aria-label="Abrir/Fechar menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <h1>Painel Administrativo</h1>
+        <div class="acessibilidade">
+        <div class="acessibilidade">
+          <button onclick="alterarFonte('+')">A+</button>
+          <button onclick="alterarFonte('-')">A-</button>
+          <button onclick="alterarFonte('reset')">A</button>
+        </div>
+      </div>
+    </header>
+
+    <div id="overlay" class="overlay"></div>
+
+    <nav id="sidebar" class="sidebar" aria-label="Menu de navegação administrativa">
+        <div class="sidebar-header">
+            <span id="userGreeting">Olá, Usuário</span>
+        </div>
+        <ul>
+            <li><a href="#" data-section="perfil" class="active">Perfil</a></li>
+            <li><a href="#" data-section="pedidos">Todos os Pedidos</a></li>
+            <li><a href="#" data-section="cadastrar-produtos">Cadastrar Produtos</a></li>
+            <li><a href="#" data-section="alterar-produtos">Alterar Produtos</a></li>
+            <li><a href="#" data-section="relatorios">Relatórios</a></li>
+            <li><a href="../html/catalogo.html">Voltar ao Catálogo</a></li>
+        </ul>
+    </nav>
+
+    <main id="main-content">
+        <section id="perfil" class="content-section active" aria-label="Perfil do administrador">
+            <h2>Perfil do Administrador</h2>
+            <div id="perfil-content"></div>
+        </section>
+        <section id="pedidos" class="content-section" aria-label="Lista de todos os pedidos">
+            <h2>Todos os Pedidos</h2>
+            <!-- Barra de filtros -->
+            <div class="pedidos-filtros">
+                <div class="filtro-grupo">
+                    <label for="filtro-status">Status:</label>
+                    <select id="filtro-status" aria-label="Filtrar por status do pedido">
+                        <option value="">Todos</option>
+                        <option value="aguardando">Aguardando</option>
+                        <option value="concluido">Concluído</option>
+                        <option value="cancelado">Cancelado</option>
+                    </select>
+                </div>
+                <div class="filtro-grupo">
+                    <label for="filtro-nome-cliente">Nome do Cliente:</label>
+                    <input type="text" id="filtro-nome-cliente" placeholder="Buscar por nome..."
+                        aria-label="Buscar pedidos por nome do cliente">
+                </div>
+                <div class="filtro-grupo">
+                    <label for="filtro-data-inicio">Data Início:</label>
+                    <input type="date" id="filtro-data-inicio" aria-label="Filtrar por data de início">
+                </div>
+                <div class="filtro-grupo">
+                    <label for="filtro-data-fim">Data Fim:</label>
+                    <input type="date" id="filtro-data-fim" aria-label="Filtrar por data de fim">
+                </div>
+                <div class="filtro-grupo">
+                    <label for="filtro-valor-minimo">Valor Mínimo:</label>
+                    <input type="number" id="filtro-valor-minimo" min="0" step="0.01" placeholder="R$ 0,00"
+                        aria-label="Filtrar por valor mínimo">
+                </div>
+                <div class="filtro-grupo">
+                    <label for="filtro-valor-maximo">Valor Máximo:</label>
+                    <input type="number" id="filtro-valor-maximo" min="0" step="0.01" placeholder="R$ 0,00"
+                        aria-label="Filtrar por valor máximo">
+                </div>
+                <button id="limpar-filtros" aria-label="Limpar filtros">Limpar Filtros</button>
+            </div>
+            <div id="pedidos-content"></div>
+        </section>
+        <section id="cadastrar-produtos" class="content-section" aria-label="Cadastro de produtos">
+            <h2>Cadastrar Novo Produto</h2>
+            <form id="form-adicionar-produto" enctype="multipart/form-data" novalidate>
+                <input type="text" id="titulo" placeholder="Título" required aria-label="Título do produto">
+                <input type="number" id="preco" step="0.01" min="0" placeholder="Preço" required
+                    aria-label="Preço do produto">
+                <input type="file" id="imagem" accept="image/*" required aria-label="Imagem do produto">
+                <select id="categoria" required aria-label="Categoria do produto">
+                    <option value="" disabled selected>Selecione uma categoria</option>
+                    <option value="bebidas">Bebidas</option>
+                    <option value="alimentos">Alimentos</option>
+                    <option value="outros">Outros</option>
+                </select>
+                <button type="submit" aria-label="Adicionar produto">Adicionar Produto</button>
+            </form>
+        </section>
+        <section id="alterar-produtos" class="content-section" aria-label="Alteração de produtos">
+            <h2>Alterar Produtos Existentes</h2>
+            <div class="navbar-center">
+                <input type="search" id="busca-produto" placeholder="Buscar por nome..."
+                    aria-label="Buscar produtos por nome">
+                <select id="filtro-categoria" aria-label="Filtrar por categoria">
+                    <option value="">Todas as Categorias</option>
+                    <option value="bebidas">Bebidas</option>
+                    <option value="alimentos">Alimentos</option>
+                    <option value="outros">Outros</option>
+                </select>
+                <select id="filtro-status-produto" aria-label="Filtrar por status do produto">
+                    <option value="">Todos</option>
+                    <option value="1">Ativo</option>
+                    <option value="0">Desativado</option>
+                </select>
+            </div>
+            <div class="container-itens" id="container-itens" role="list"></div>
+        </section>
+        <section id="relatorios" class="content-section" aria-label="Relatórios">
+            <h2>Relatórios</h2>
+            <div class="relatorios-filtros">
+                <div class="filtro-grupo">
+                    <label for="relatorio-periodo">Período:</label>
+                    <select id="relatorio-periodo" aria-label="Selecionar período do relatório">
+                        <option value="diario">Diário</option>
+                        <option value="mensal">Mensal</option>
+                        <option value="anual">Anual</option>
+                    </select>
+                </div>
+                <div class="filtro-grupo">
+                    <label for="relatorio-data-inicio">Data Início:</label>
+                    <input type="date" id="relatorio-data-inicio" aria-label="Filtrar por data de início">
+                </div>
+                <div class="filtro-grupo">
+                    <label for="relatorio-data-fim">Data Fim:</label>
+                    <input type="date" id="relatorio-data-fim" aria-label="Filtrar por data de fim">
+                    <small>Datas sao feitas com o horario de 00:00 horas</small>
+                  </div>
+                <div class="filtro-grupo">
+                    <label for="relatorio-categoria">Categoria:</label>
+                    <select id="relatorio-categoria" aria-label="Filtrar por categoria">
+                        <option value="">Todas</option>
+                        <option value="bebidas">Bebidas</option>
+                        <option value="alimentos">Alimentos</option>
+                        <option value="outros">Outros</option>
+                    </select>
+                </div>
+                <div class="filtro-grupo">
+                    <label for="filtro-status">Status do Pedido:</label>
+                    <select id="filtro-status" aria-label="Filtrar por status do pedido">
+                        <option value="">Todos</option>
+                        <option value="concluido">Concluído</option>
+                        <option value="aguardando">Aguardando</option>
+                        <option value="cancelado">Cancelado</option>
+                    </select>
+                </div>
+                <div class="filtro-grupo">
+                    <label for="filtro-valor-min">Valor Mínimo (R$):</label>
+                    <input type="number" id="filtro-valor-min" step="0.01" min="0" placeholder="0,00"
+                        aria-label="Filtrar por valor mínimo">
+                </div>
+                <button id="btn-gerar-relatorios" aria-label="Gerar relatórios">Gerar Relatórios</button>
+                <button id="exportar-pdf" aria-label="Exportar relatórios como PDF">Exportar PDF</button>
+            </div>
+            <div class="relatorios-content">
+                <h3>Vendas por Período</h3>
+                <div id="vendas-content">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Total de Pedidos</th>
+                                <th>Valor Total (R$)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="vendas-tabela"></tbody>
+                    </table>
+                </div>
+                <h3>Produtos Mais Vendidos</h3>
+                <div id="produtos-content">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Produto</th>
+                                <th>Categoria</th>
+                                <th>Quantidade Vendida</th>
+                                <th>Valor Total (R$)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="produtos-tabela"></tbody>
+                    </table>
+                </div>
+                <h3>Usuários que Mais Compraram</h3>
+                <div id="usuarios-content">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Total de Pedidos</th>
+                                <th>Valor Total (R$)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usuarios-tabela"></tbody>
+                    </table>
+                </div>
+                <h3>Desempenho por Categoria</h3>
+                <div id="categorias-content">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Categoria</th>
+                                <th>Total de Pedidos</th>
+                                <th>Total de Itens</th>
+                                <th>Valor Total (R$)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="categorias-tabela"></tbody>
+                    </table>
+                </div>
+                <h3>Taxa de Cancelamento</h3>
+                <div id="taxa-content">
+                    <p id="taxa-text"></p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="../js/adminMain.js"></script>
+    <script src="../js/adminProfile.js"></script>
+    <script src="../js/adminOrders.js"></script>
+    <script src="../js/adminProducts.js"></script>
+    <script src="../js/adminUtils.js"></script>
+    <script src="../js/adminReports.js"></script>
+    
+
+    <div vw class="enabled">
+        <div vw-access-button class="active" aria-label="Ativar acessibilidade VLibras"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget("https://vlibras.gov.br/app");
+    </script>
+     <script src="../js/acessibilidade.js"></script>
+</body>
+
+</html>

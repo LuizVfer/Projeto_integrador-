@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meus Pedidos</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="../css/pedidos.css" />
+    <link rel="stylesheet" href="../css/acessibilidade.css" />
+  </head>
+  <header><div class="acessibilidade">
+        <div class="acessibilidade">
+          <button onclick="alterarFonte('+')">A+</button>
+          <button onclick="alterarFonte('-')">A-</button>
+          <button onclick="alterarFonte('reset')">A</button>
+        </div>
+      </div></header>
+
+  <body>
+    <!-- Menu Hambúrguer -->
+    <div
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="Abrir menu de navegação"
+    >
+      <i class="fa-solid fa-bars"></i>
+    </div>
+    <div id="sidebar" class="sidebar" aria-label="Menu lateral">
+      <ul class="menu-items">
+        <li>
+          <a href="#" data-section="catalogo" aria-label="Ir para catálogo">
+            <i class="fa-solid fa-store"></i> Catálogo
+          </a>
+        </li>
+        <li>
+          <a href="#" data-section="perfil" aria-label="Ir para perfil">
+            <i class="fa-regular fa-circle-user"></i> Perfil
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+            data-section="pedidos"
+            class="active"
+            aria-label="Ver pedidos"
+          >
+            <i class="fa-solid fa-shopping-cart"></i> Pedidos
+          </a>
+        </li>
+        <li>
+          <a href="#" data-section="logout" aria-label="Sair">
+            <i class="fa-solid fa-sign-out-alt"></i> Logout
+          </a>
+        </li>
+        <li id="admin-link" style="display: none">
+          <a
+            href="#"
+            data-section="admin"
+            aria-label="Acessar área administrativa"
+          >
+            <i class="fa-solid fa-user-shield"></i> Acesso Admin
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div id="overlay" class="overlay"></div>
+
+    <!-- Cabeçalho -->
+    <header>
+      <h1>Meus Pedidos</h1>
+    </header>
+
+    <!-- Lista de Pedidos -->
+    <section class="container" aria-label="Lista de pedidos">
+      <div class="pedidos-lista" id="pedidos-lista" role="list">
+        <!-- Pedidos serão carregados dinamicamente aqui -->
+      </div>
+    </section>
+
+    <!-- Modal de Detalhes do Pedido -->
+    <div id="modal-detalhes" class="modal" aria-label="Detalhes do pedido">
+      <div class="modal-content">
+        <span class="modal-close" aria-label="Fechar modal">&times;</span>
+        <h2>Detalhes do Pedido</h2>
+        <div id="modal-itens" class="modal-itens" role="list">
+          <!-- Itens do pedido serão carregados dinamicamente aqui -->
+        </div>
+        <div class="modal-total">
+          <strong>Valor Total:</strong>
+          <span id="modal-valor-total">R$ 0,00</span>
+        </div>
+      </div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+      new window.VLibras.Widget("https://vlibras.gov.br/app");
+    </script>
+
+    <!-- Scripts -->
+    <script src="../js/pedidos.js"></script>
+     <script src="../js/acessibilidade.js"></script>
+  </body>
+</html>

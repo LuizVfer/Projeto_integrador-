@@ -1,0 +1,43 @@
+CREATE DATABASE qrup;
+
+CREATE TABLE usuarios (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    data_user TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
+    role ENUM('admin', 'user') DEFAULT 'user'
+);
+
+CREATE TABLE produtos (
+    produto_id INT AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(255) NOT NULL,
+    preco DECIMAL(10, 2) NOT NULL,
+    imagem VARCHAR(255) NOT NULL
+    data_produto TIMESTAMP  DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
+    categoria ENUM('bebidas','alimentos','outros') NOT NULL
+);
+
+CREATE TABLE pedido(
+    pedido_id INT AUTO_INCREMENT NOT NULL,
+    produto_id INT NOT NULL,
+    quantidade INT NOT NULL,
+    user_id INT NOT NULL,
+    data_pedido TIMESTAMP  DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
+    PRIMARY KEY (pedido_id, produto_id),
+    FOREIGN KEY (user_id) REFERENCES usuarios(user_id),
+    FOREIGN KEY (produto_id) REFERENCES produtos(produto_id)
+);
+
+CREATE TABLE perfil(
+    perfil_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT UNIQUE,
+    nome VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    cpf VARCHAR(14) NOT NULL UNIQUE CHECK (cpf REGEXP '^[0-9]{3}\.[0-9]{3}\.[0-9]{3}-[0-9]{2}$'),
+    contato VARCHAR(20) NOT NULL,
+    contato1 VARCHAR(20),
+    endereço VARCHAR(100) NOT NULL,
+    data_perfil TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES usuarios(user_id)
+);

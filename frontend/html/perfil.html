@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Perfil</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="../css/perfil.css" />
+    <link rel="stylesheet" href="../css/acessibilidade.css" />
+  </head>
+<header><div class="acessibilidade">
+        <div class="acessibilidade">
+          <button onclick="alterarFonte('+')">A+</button>
+          <button onclick="alterarFonte('-')">A-</button>
+          <button onclick="alterarFonte('reset')">A</button>
+        </div>
+      </div></header>
+  <body>
+    <!-- Menu Hambúrguer -->
+    <div
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="Abrir menu de navegação"
+    >
+      <i class="fa-solid fa-bars"></i>
+    </div>
+    <div id="sidebar" class="sidebar" aria-label="Menu lateral">
+      <ul class="menu-items">
+        <li>
+          <a href="#" data-section="catalogo" aria-label="Ir para catálogo">
+            <i class="fa-solid fa-store"></i> Catálogo
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+            data-section="perfil"
+            class="active"
+            aria-label="Ir para perfil"
+          >
+            <i class="fa-regular fa-circle-user"></i> Perfil
+          </a>
+        </li>
+        <li>
+          <a href="#" data-section="pedidos" aria-label="Ver pedidos">
+            <i class="fa-solid fa-shopping-cart"></i> Pedidos
+          </a>
+        </li>
+        <li>
+          <a href="#" data-section="logout" aria-label="Sair">
+            <i class="fa-solid fa-sign-out-alt"></i> Logout
+          </a>
+        </li>
+        <li id="admin-link" style="display: none">
+          <a
+            href="#"
+            data-section="admin"
+            aria-label="Acessar área administrativa"
+          >
+            <i class="fa-solid fa-user-shield"></i> Acesso Admin
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div id="overlay" class="overlay"></div>
+
+    <!-- Cabeçalho -->
+    <header>
+      <h1>Meu Perfil</h1>
+    </header>
+
+    <!-- Formulário de Perfil -->
+    <section class="container" aria-label="Formulário de perfil">
+      <form id="form-perfil" class="form-perfil">
+        <div class="form-group">
+          <label for="nome">Nome *</label>
+          <input type="text" id="nome" readonly required />
+        </div>
+        <div class="form-group">
+          <label for="data-nascimento">Data de Nascimento *</label>
+          <input type="date" id="data-nascimento" readonly required />
+        </div>
+        <div class="form-group">
+          <label for="cpf">CPF *</label>
+          <input type="text" id="cpf" readonly required />
+        </div>
+        <div class="form-group">
+          <label for="contato1">Contato 1 *</label>
+          <input type="text" id="contato1" readonly required />
+        </div>
+        <div class="form-group">
+          <label for="contato2">Contato 2</label>
+          <input type="text" id="contato2" readonly />
+        </div>
+        <div class="form-group">
+          <label for="nome_rua">Rua *</label>
+          <input type="text" id="nome_rua" readonly required />
+        </div>
+        <div class="form-group">
+          <label for="numero_casa">Número *</label>
+          <input type="text" id="numero_casa" readonly required />
+        </div>
+        <div class="form-group">
+          <label for="bairro">Bairro *</label>
+          <input type="text" id="bairro" readonly required />
+        </div>
+        <div class="form-group">
+          <label for="cidade">Cidade *</label>
+          <input type="text" id="cidade" readonly required />
+        </div>
+        <div class="form-group">
+          <label for="UF">UF *</label>
+          <input type="text" id="UF" readonly required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email *</label>
+          <input type="email" id="email" readonly required />
+        </div>
+        <div class="form-buttons">
+          <button type="button" id="btn-alterar" aria-label="Habilitar edição">
+            Alterar
+          </button>
+          <button
+            type="submit"
+            id="btn-salvar"
+            disabled
+            aria-label="Salvar alterações"
+          >
+            Salvar
+          </button>
+        </div>
+      </form>
+    </section>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+      new window.VLibras.Widget("https://vlibras.gov.br/app");
+    </script>
+
+    <!-- Scripts -->
+    <script src="../js/perfil.js"></script>
+     <script src="../js/acessibilidade.js"></script>
+  </body>
+</html>

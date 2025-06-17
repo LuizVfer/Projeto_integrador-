@@ -1,0 +1,16 @@
+/* global.css */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600&family=Roboto:wght@300;400;500;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Open Sans', 'Roboto', sans-serif;
+}
+
+[vw] {
+    position: fixed;
+    bottom: 0.625rem; /* 10px */
+    right: 0.625rem; /* 10px */
+}
+
