@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nfeProc xmlns="http://www.portalfiscal.inf.br/nfe" versao="4.00">
+  <NFe>
+    <infNFe versao="4.00" Id="NFe35250712345678901234567890123456789012345678">
+      <ide>
+        <cUF>35</cUF>
+        <nNF>123456</nNF>
+        <dhEmi>2025-07-10T10:00:00-03:00</dhEmi>
+      </ide>
+      <emit>
+        <CNPJ>12345678000195</CNPJ>
+        <xNome>Empresa Exemplo LTDA</xNome>
+      </emit>
+      <dest>
+        <CNPJ>98765432000191</CNPJ>
+        <xNome>Destinatário Exemplo</xNome>
+      </dest>
+
+      <!-- PRODUTOS EXISTENTES -->
+      <det nItem="1">
+        <prod>
+          <cProd>PROD001</cProd>
+          <cEAN>5365889347451</cEAN>
+          <xProd>COCA - LATA</xProd>
+          <qCom>10</qCom>
+          <vUnCom>5.00</vUnCom>
+          <vProd>50.00</vProd>
+        </prod>
+      </det>
+      <det nItem="2">
+        <prod>
+          <cProd>PROD002</cProd>
+          <cEAN>7084486602739</cEAN>
+          <xProd>SKOL - LATA</xProd>
+          <qCom>15</qCom>
+          <vUnCom>4.00</vUnCom>
+          <vProd>60.00</vProd>
+        </prod>
+      </det>
+      <det nItem="3">
+        <prod>
+          <cProd>PROD003</cProd>
+          <cEAN>3050865653771</cEAN>
+          <xProd>FANTA - LATA</xProd>
+          <qCom>12</qCom>
+          <vUnCom>4.50</vUnCom>
+          <vProd>54.00</vProd>
+        </prod>
+      </det>
+      <det nItem="4">
+        <prod>
+          <cProd>PROD004</cProd>
+          <cEAN>5013760807715</cEAN>
+          <xProd>SRITE - LATA</xProd>
+          <qCom>20</qCom>
+          <vUnCom>4.00</vUnCom>
+          <vProd>80.00</vProd>
+        </prod>
+      </det>
+      <det nItem="5">
+        <prod>
+          <cProd>PROD005</cProd>
+          <cEAN>3210987654326</cEAN>
+          <xProd>HEINEKEN - LATA</xProd>
+          <qCom>5</qCom>
+          <vUnCom>6.00</vUnCom>
+          <vProd>30.00</vProd>
+        </prod>
+      </det>
+
+      <!-- PRODUTOS NÃO EXISTENTES -->
+      <det nItem="6">
+        <prod>
+          <cProd>PROD006</cProd>
+          <cEAN>7891234567897</cEAN>
+          <xProd>SUCO DE UVA - LATA</xProd>
+          <qCom>8</qCom>
+          <vUnCom>3.90</vUnCom>
+          <vProd>31.20</vProd>
+        </prod>
+      </det>
+      <det nItem="7">
+        <prod>
+          <cProd>PROD007</cProd>
+          <cEAN>7892345678903</cEAN>
+          <xProd>GUARANÁ - LATA</xProd>
+          <qCom>10</qCom>
+          <vUnCom>4.00</vUnCom>
+          <vProd>40.00</vProd>
+        </prod>
+      </det>
+      <det nItem="8">
+        <prod>
+          <cProd>PROD008</cProd>
+          <cEAN>7893456789010</cEAN>
+          <xProd>ÁGUA MINERAL - LATA</xProd>
+          <qCom>30</qCom>
+          <vUnCom>2.50</vUnCom>
+          <vProd>75.00</vProd>
+        </prod>
+      </det>
+      <det nItem="9">
+        <prod>
+          <cProd>PROD009</cProd>
+          <cEAN>7894567890127</cEAN>
+          <xProd>CAFÉ GELADO - LATA</xProd>
+          <qCom>6</qCom>
+          <vUnCom>5.20</vUnCom>
+          <vProd>31.20</vProd>
+        </prod>
+      </det>
+      <det nItem="10">
+        <prod>
+          <cProd>PROD010</cProd>
+          <cEAN>7895678901234</cEAN>
+          <xProd>ENERGÉTICO - LATA</xProd>
+          <qCom>9</qCom>
+          <vUnCom>6.50</vUnCom>
+          <vProd>58.50</vProd>
+        </prod>
+      </det>
+
+      <total>
+        <ICMSTot>
+          <vProd>509.90</vProd>
+        </ICMSTot>
+      </total>
+    </infNFe>
+  </NFe>
+</nfeProc>

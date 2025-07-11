@@ -11,6 +11,10 @@ body.background {
   background: url("../../images/backgroundlogin.png") no-repeat center center fixed;
   background-size: cover;
   background-color: rgb(0, 0, 0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
 .overlay {
@@ -21,26 +25,27 @@ body.background {
   width: 100%;
   height: 100%;
   opacity: 0.8;
+  z-index: 1;
 }
 
 .container {
+  position: relative;
+  z-index: 2;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  position: relative;
+  width: 100%;
 }
 
 .box {
   display: flex;
   flex-direction: column;
-  position: relative;
   padding: 60px 20px 30px 20px;
   width: 380px;
   border-radius: 30px;
   background-color: rgba(255, 255, 255, 0.9);
   border: 3px solid rgba(250, 250, 250, 0.9);
-  opacity: 1;
 }
 
 .top-header {
@@ -49,14 +54,19 @@ body.background {
 }
 
 .top-header h3 {
-  font-size: 26px; /* Aumentado para melhor legibilidade */
+  font-size: 26px;
   font-weight: 600;
-  color: #333; /* Tom mais escuro */
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Sombra leve */
+  color: #333;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.step {
+  width: 100%;
 }
 
 .input-group {
   width: 100%;
+  margin-bottom: 20px;
 }
 
 .input-field {
@@ -67,14 +77,19 @@ body.background {
 .input-box {
   width: 100%;
   height: 50px;
-  font-size: 18px; /* Aumentado para melhor legibilidade */
-  color: #040404; /* Mantenha um tom escuro */
+  font-size: 18px;
+  color: #040404;
   border: none;
   border-radius: 10px;
-  padding: 10px 20px; /* Aumentado o padding */
+  padding: 10px 20px;
   background: rgba(192, 192, 192, 0.719);
   transition: 0.3s ease-in-out;
   outline: none;
+}
+
+.input-box:focus,
+.input-box:valid {
+  background: rgba(192, 192, 192, 0.9);
 }
 
 .input-field label {
@@ -83,34 +98,24 @@ body.background {
   top: 15px;
   font-size: 15px;
   transition: 0.3s ease-in-out;
-  color: #666; /* Cor de texto mais suave */
+  color: #666;
 }
 
 .input-box:focus ~ label,
 .input-box:valid ~ label {
   top: 2px;
-  font-size: 12px; /* Aumentado para melhor legibilidade */
+  font-size: 12px;
   color: #000000;
   font-weight: 500;
 }
 
-.input-submit {
-  width: 100%;
-  height: 50px;
-  font-size: 18px; /* Aumentado para melhor legibilidade */
-  font-weight: 500;
-  border: none;
-  border-radius: 10px;
-  background: #29f143;
-  color: #080808;
-  cursor: pointer;
-  transition: 0.4s;
-}
-
 .eye-area {
   position: absolute;
-  top: 25px;
+  top: 50%;
   right: 25px;
+  transform: translateY(-50%);
+  z-index: 10;
+  pointer-events: auto;
 }
 
 .eye-box {
@@ -118,12 +123,17 @@ body.background {
   align-items: center;
   justify-content: center;
   position: relative;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  pointer-events: auto;
 }
 
-i {
+.eye-box i {
   position: absolute;
   color: #444444;
-  cursor: pointer;
+  font-size: 18px;
+  pointer-events: none;
 }
 
 #eye-1,
@@ -136,14 +146,57 @@ i {
   opacity: 0;
 }
 
-.input-submit:hover {
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+  min-height: 20px;
+}
+
+.input-submit {
+  width: 100%;
+  height: 50px;
+  font-size: 18px;
+  font-weight: 500;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+.input-submit#btn-request-code {
+  background: #007bff;
+  color: #ffffff;
+}
+
+.input-submit#btn-request-code:hover {
+  background: #0056b3;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.input-submit#btn-verify-code {
+  background: #ffc107;
+  color: #080808;
+}
+
+.input-submit#btn-verify-code:hover {
+  background: #e0a800;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.input-submit#btn-submit {
+  background: #29f143;
+  color: #080808;
+}
+
+.input-submit#btn-submit:hover {
   background: #1de136;
   box-shadow: 0px 4px 20px rgba(62, 9, 9, 0.32);
 }
 
 .back-to-login {
   text-align: center;
-  font-size: 16px; /* Aumentado para melhor legibilidade */
+  font-size: 16px;
   font-weight: 600;
   margin-top: 20px;
 }
@@ -153,20 +206,43 @@ i {
   color: #000;
 }
 
-.error-message {
-  color: red;
-  font-size: 14px; /* Aumentado para melhor legibilidade */
-  margin-top: 5px;
+.back-to-login a:hover {
+  color: #007bff;
 }
 
-[vw] {
+#toast-container {
   position: fixed;
-  bottom: 10px;
-  right: 10px;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.toast {
+  background: #333;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 14px;
+}
+
+.toast.show {
+  opacity: 1;
+}
+
+.toast.error {
+  background: #dc3545;
+}
+
+.toast.success {
+  background: #28a745;
 }
 
 @media only screen and (max-width: 576px) {
   .box {
     margin: 0 5px;
+    width: 90%;
   }
 }

@@ -1,13 +1,29 @@
-// js/perfil.js
 const API_URL = 'http://localhost:3000';
 
+// Função para exibir notificações toast
+function showToast(message, type = 'error') {
+  const toastContainer = document.getElementById('toast-container');
+  if (!toastContainer) {
+    console.error('Contêiner de toast não encontrado.');
+    return;
+  }
+  const toast = document.createElement('div');
+  toast.classList.add('toast', type);
+  toast.textContent = message;
+  toastContainer.appendChild(toast);
+  setTimeout(() => toast.classList.add('show'), 100);
+  setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => toast.remove(), 300);
+  }, 3000);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-  loadProfile(); // Substituído carregarDadosPerfil por loadProfile
+  loadProfile();
   setupMenu();
   verificarAdmin();
   document.getElementById('form-perfil').addEventListener('submit', updateProfile);
   document.getElementById('btn-alterar').addEventListener('click', enableEditing);
-  // Removido o evento do btn-voltar, pois o botão não existe mais no HTML
 });
 
 function setupMenu() {
@@ -42,7 +58,7 @@ function setupMenu() {
         localStorage.clear();
         window.location.href = './login.html';
       } else if (section === 'admin') {
-        window.location.href = './AdminDashboard.html';
+        window.location.href = './adminPerfil.html';
       }
       sidebar.classList.remove('active');
       overlay.classList.remove('active');
@@ -100,8 +116,8 @@ function loadProfile() {
     })
     .then(data => {
       document.getElementById('nome').value = data.perfil.nome || '';
-      document.getElementById('data-nascimento').value = data.perfil.data_nascimento 
-        ? new Date(data.perfil.data_nascimento).toISOString().split('T')[0] 
+      document.getElementById('data-nascimento').value = data.perfil.data_nascimento
+        ? new Date(data.perfil.data_nascimento).toISOString().split('T')[0]
         : '';
       document.getElementById('cpf').value = data.perfil.cpf || '';
       document.getElementById('contato1').value = data.perfil.contato1 || '';
@@ -115,7 +131,7 @@ function loadProfile() {
     })
     .catch(error => {
       console.error('Erro ao carregar perfil:', error);
-      alert(`Erro ao carregar perfil: ${error.message}`);
+      showToast(`Erro ao carregar perfil: ${error.message}`, 'error');
     });
 }
 
@@ -135,7 +151,7 @@ function updateProfile(event) {
   }
 
   if (document.getElementById('btn-salvar').hasAttribute('disabled')) {
-    alert('Clique em "Alterar" para editar os dados antes de salvar.');
+    showToast('Clique em "Alterar" para editar os dados antes de salvar.', 'error');
     return;
   }
 
@@ -151,25 +167,21 @@ function updateProfile(event) {
   const UF = document.getElementById('UF').value.trim();
   const email = document.getElementById('email').value.trim();
 
-  // Validação dos campos obrigatórios
   if (!nome || !data_nascimento || !cpf || !contato1 || !nome_rua || !numero_casa || !bairro || !cidade || !UF || !email) {
-    alert('Por favor, preencha todos os campos obrigatórios.');
+    showToast('Por favor, preencha todos os campos obrigatórios.', 'error');
     return;
   }
 
-  // Validação do formato do CPF
   if (!/^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(cpf)) {
-    alert('CPF deve estar no formato 000.000.000-00');
+    showToast('CPF deve estar no formato 000.000.000-00', 'error');
     return;
   }
 
-  // Validação do formato da UF (2 letras)
   if (!/^[A-Z]{2}$/.test(UF)) {
-    alert('Estado (UF) deve conter exatamente 2 letras maiúsculas.');
+    showToast('Estado (UF) deve conter exatamente 2 letras maiúsculas.', 'error');
     return;
   }
 
-  // Enviar dados para o backend
   fetch(`${API_URL}/perfil`, {
     method: 'PUT',
     headers: {
@@ -185,8 +197,7 @@ function updateProfile(event) {
       return response.json();
     })
     .then(() => {
-      alert('Perfil atualizado com sucesso!');
-      // Bloquear campos após salvar
+      showToast('Perfil atualizado com sucesso!', 'success');
       const inputs = document.querySelectorAll('#form-perfil input');
       inputs.forEach(input => input.setAttribute('readonly', 'true'));
       document.getElementById('btn-salvar').setAttribute('disabled', 'true');
@@ -194,6 +205,6 @@ function updateProfile(event) {
     })
     .catch(error => {
       console.error('Erro ao atualizar perfil:', error);
-      alert(`Erro ao atualizar perfil: ${error.message}`);
+      showToast(`Erro ao atualizar perfil: ${error.message}`, 'error');
     });
 }

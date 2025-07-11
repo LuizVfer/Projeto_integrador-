@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../css/adminAlterarProdutos.css">
+    <link rel="stylesheet" href="../css/toast.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/acessibilidade.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
+    <title>Painel Administrativo</title>
+</head>
+
+<body>
+    <header>
+        <button id="menu-toggle" class="menu-toggle" aria-label="Abrir/Fechar menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <h1>Painel Administrativo</h1>
+        <div class="acessibilidade">
+            <div class="acessibilidade">
+                <button onclick="alterarFonte('+')">A+</button>
+                <button onclick="alterarFonte('-')">A-</button>
+                <button onclick="alterarFonte('reset')">A</button>
+            </div>
+        </div>
+    </header>
+
+    <div id="overlay" class="overlay"></div>
+
+    <nav id="sidebar" class="sidebar" aria-label="Menu de navegação administrativa">
+        <div class="sidebar-header">
+            <span id="userGreeting">Olá, Usuário</span>
+        </div>
+        <ul>
+            <li><a href="./adminPerfil.html">Perfil</a></li>
+            <li><a href="./adminPedidos.html">Todos os Pedidos</a></li>
+            <li><a href="./adminCadastrarProdutos.html">Cadastrar Produtos</a></li>
+            <li><a href="./adminAlterarProdutos.html">Alterar Produtos</a></li>
+            <li><a href="./adminRelatorio.html">Relatórios</a></li>
+            <li><a href="../html/catalogo.html">Voltar ao Catálogo</a></li>
+        </ul>
+    </nav>
+    <main id="main-content">
+        <section id="alterar-produtos" class="content-section active" aria-label="Alteração de produtos">
+            <h2>Alterar Produtos Existentes</h2>
+            <div class="navbar-center">
+                <input type="search" id="busca-produto" placeholder="Buscar por nome..."
+                    aria-label="Buscar produtos por nome">
+                <select id="filtro-categoria" aria-label="Filtrar por categoria">
+                    <option value="">Todas as Categorias</option>
+                    <option value="bebidas">Bebidas</option>
+                    <option value="alimentos">Alimentos</option>
+                    <option value="outros">Outros</option>
+                </select>
+                <select id="filtro-status-produto" aria-label="Filtrar por status do produto">
+                    <option value="">Todos</option>
+                    <option value="1">Ativo</option>
+                    <option value="0">Desativado</option>
+                </select>
+                <button id="abrir-incrementar-estoque">Incrementar Estoque</button>
+                <button id="abrir-importar-nfe">Importar NF-e</button>
+            </div>
+            <div class="container-itens" id="container-itens" role="list"></div>
+            <div id="paginacao-container" class="paginacao-container"></div>
+        </section>
+        <!-- Popup para incrementar estoque -->
+        <div id="modal-incrementar-estoque" class="modal-incrementar" style="display: none;">
+            <div class="modal-content">
+                <h2>Incrementar Estoque</h2>
+                <form id="form-incrementar-estoque">
+                    <label for="incrementarBarcode">Código de Barras:</label>
+                    <input type="text" id="incrementarBarcode" required pattern="\d{13}"
+                        title="Código de barras deve ter 13 dígitos numéricos">
+                    <label for="incrementarQuantidade">Quantidade:</label>
+                    <input type="number" id="incrementarQuantidade" min="1" required>
+                    <button type="submit">Incrementar</button>
+                    <button type="button" id="cancelar-incrementar">Cancelar</button>
+                </form>
+            </div>
+        </div>
+        <div id="modal-importar-nfe" class="modal-incrementar" style="display: none;">
+            <div class="modal-content">
+                <h2>Importar Nota Fiscal Eletrônica</h2>
+                <form id="form-importar-nfe">
+                    <label for="arquivo-nfe">Arquivo XML da NF-e:</label>
+                    <input type="file" id="arquivo-nfe" accept=".xml" required />
+                    <button type="submit">Importar</button>
+                    <button type="button" id="cancelar-importar-nfe">Cancelar</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="toast-container" id="toast-container"></div>
+    </main>
+
+    <script defer src="../js/adminUtils.js"></script>
+    <script defer src="../js/adminProducts.js"></script>
+    <script defer src="../js/adminMain.js"></script>
+    <script defer src="../js/acessibilidade.js"></script>
+    <script defer type="module" src="../js/gerarBarcode.js"></script>
+
+    <div vw class="enabled">
+        <div vw-access-button class="active" aria-label="Ativar acessibilidade VLibras"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget("https://vlibras.gov.br/app");
+    </script>
+</body>
+
+</html>

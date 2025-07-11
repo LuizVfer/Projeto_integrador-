@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../css/adminPedidos.css">
+    <link rel="stylesheet" href="../css/toast.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/acessibilidade.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
+    <title>Painel Administrativo</title>
+</head>
+
+<body>
+    <header>
+        <button id="menu-toggle" class="menu-toggle" aria-label="Abrir/Fechar menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <h1>Painel Administrativo</h1>
+        <div class="acessibilidade">
+            <div class="acessibilidade">
+                <button onclick="alterarFonte('+')">A+</button>
+                <button onclick="alterarFonte('-')">A-</button>
+                <button onclick="alterarFonte('reset')">A</button>
+            </div>
+        </div>
+    </header>
+
+    <div id="overlay" class="overlay"></div>
+
+    <nav id="sidebar" class="sidebar" aria-label="Menu de navegação administrativa">
+        <div class="sidebar-header">
+            <span id="userGreeting">Olá, Usuário</span>
+        </div>
+        <ul>
+            <li><a href="./adminPerfil.html">Perfil</a></li>
+            <li><a href="./adminPedidos.html">Todos os Pedidos</a></li>
+            <li><a href="./adminCadastrarProdutos.html">Cadastrar Produtos</a></li>
+            <li><a href="./adminAlterarProdutos.html">Alterar Produtos</a></li>
+            <li><a href="./adminRelatorio.html">Relatórios</a></li>
+            <li><a href="../html/catalogo.html">Voltar ao Catálogo</a></li>
+        </ul>
+    </nav>
+    <main id="main-content">
+        <section id="pedidos" class="content-section active" aria-label="Lista de todos os pedidos">
+            <h2>Todos os Pedidos</h2>
+            <!-- Barra de filtros -->
+            <div class="pedidos-filtros">
+                <div class="filtro-grupo">
+                    <label for="filtro-status">Status:</label>
+                    <select id="filtro-status" aria-label="Filtrar por status do pedido">
+                        <option value="">Todos</option>
+                        <option value="aguardando">Aguardando</option>
+                        <option value="concluido">Concluído</option>
+                        <option value="cancelado">Cancelado</option>
+                    </select>
+                </div>
+                <div class="filtro-grupo">
+                    <label for="filtro-nome-cliente">Nome do Cliente:</label>
+                    <input type="text" id="filtro-nome-cliente" placeholder="Buscar por nome..."
+                        aria-label="Buscar pedidos por nome do cliente">
+                </div>
+                <div class="filtro-grupo">
+                    <label for="filtro-data-inicio">Data Início:</label>
+                    <input type="date" id="filtro-data-inicio" aria-label="Filtrar por data de início">
+                </div>
+                <div class="filtro-grupo">
+                    <label for="filtro-data-fim">Data Fim:</label>
+                    <input type="date" id="filtro-data-fim" aria-label="Filtrar por data de fim">
+                </div>
+                <div class="filtro-grupo">
+                    <label for="filtro-valor-minimo">Valor Mínimo:</label>
+                    <input type="number" id="filtro-valor-minimo" min="0" step="0.01" placeholder="R$ 0,00"
+                        aria-label="Filtrar por valor mínimo">
+                </div>
+                <div class="filtro-grupo">
+                    <label for="filtro-valor-maximo">Valor Máximo:</label>
+                    <input type="number" id="filtro-valor-maximo" min="0" step="0.01" placeholder="R$ 0,00"
+                        aria-label="Filtrar por valor máximo">
+                </div>
+                <button id="limpar-filtros" aria-label="Limpar filtros">Limpar Filtros</button>
+            </div>
+            <div id="pedidos-content"></div>
+        </section>
+        <div class="toast-container" id="toast-container"></div>
+    </main>
+
+    <script defer src="../js/adminUtils.js"></script>
+    <script defer src="../js/adminOrders.js"></script>
+    <script defer src="../js/adminMain.js"></script>
+    <script defer src="../js/acessibilidade.js"></script>
+
+    <div vw class="enabled">
+        <div vw-access-button class="active" aria-label="Ativar acessibilidade VLibras"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget("https://vlibras.gov.br/app");
+    </script>
+</body>
+
+</html>

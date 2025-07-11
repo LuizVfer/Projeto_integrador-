@@ -15,7 +15,7 @@ app.use(express.json());
 // Atualize o CORS para permitir a origem do frontend
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://127.0.0.1:5501"], // Permite múltiplas origens
+    origin: ["http://localhost:3000", "http://127.0.0.1:5500"], // Permite múltiplas origens
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })

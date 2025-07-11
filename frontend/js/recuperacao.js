@@ -1,131 +1,199 @@
-// frontend/recuperacao.js
+const API_URL = 'http://localhost:3000';
 
-// Função para alternar visibilidade da senha
-function myRegPassword(inputId, eyeId, eyeSlashId) {
-    const passwordField = document.getElementById(inputId);
-    const eyeIcon = document.getElementById(eyeId);
-    const eyeSlashIcon = document.getElementById(eyeSlashId);
-
-    if (!passwordField || !eyeIcon || !eyeSlashIcon) {
-        console.error('Elementos não encontrados:', { inputId, eyeId, eyeSlashId });
-        return;
-    }
-
-    if (passwordField.type === 'password') {
-        passwordField.type = 'text';
-        eyeIcon.style.display = 'none';
-        eyeSlashIcon.style.display = 'block';
-    } else {
-        passwordField.type = 'password';
-        eyeIcon.style.display = 'block';
-        eyeSlashIcon.style.display = 'none';
-    }
+// Função para exibir notificações toast
+function showToast(message, type = 'error', stepId) {
+  const toastContainer = document.getElementById('toast-container');
+  const toast = document.createElement('div');
+  toast.classList.add('toast', type);
+  toast.textContent = message;
+  toastContainer.appendChild(toast);
+  setTimeout(() => toast.classList.add('show'), 100);
+  setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => toast.remove(), 300);
+  }, 3000);
+  // Exibir mensagem apenas no campo de erro se for tipo 'error'
+  if (type === 'error' && stepId) {
+    const errorMessage = document.getElementById(`error-message-${stepId}`);
+    errorMessage.textContent = message;
+  } else if (stepId) {
+    // Limpar o campo de erro para mensagens de sucesso
+    const errorMessage = document.getElementById(`error-message-${stepId}`);
+    errorMessage.textContent = '';
+  }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    const form = document.querySelector('#recuperacao-form');
-    const emailInput = document.getElementById('email');
-    const passwordInput = document.getElementById('password');
-    const confirmPasswordInput = document.getElementById('confirm-password');
-    const emailError = document.getElementById('emailError');
-    const passwordError = document.getElementById('passwordError');
-    const confirmPasswordError = document.getElementById('confirmPasswordError');
-    const messageDiv = document.getElementById('message');
+// Função para mostrar/esconder etapas
+function showStep(stepId) {
+  document.querySelectorAll('.step').forEach(step => {
+    step.style.display = 'none';
+  });
+  document.getElementById(stepId).style.display = 'block';
+}
 
-    // Verificar se todos os elementos existem
-    if (!form || !emailInput || !passwordInput || !confirmPasswordInput || !emailError || !passwordError || !confirmPasswordError || !messageDiv) {
-        console.error('Um ou mais elementos do formulário não foram encontrados:', {
-            form: !!form,
-            emailInput: !!emailInput,
-            passwordInput: !!passwordInput,
-            confirmPasswordInput: !!confirmPasswordInput,
-            emailError: !!emailError,
-            passwordError: !!passwordError,
-            confirmPasswordError: !!confirmPasswordError,
-            messageDiv: !!messageDiv
-        });
-        messageDiv && (messageDiv.textContent = 'Erro: Formulário não carregado corretamente.');
-        return;
-    }
+// Função para solicitar código de verificação
+function requestVerificationCode() {
+  const email = document.getElementById('email').value.trim();
 
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
+  if (!email) {
+    showToast('Por favor, insira um e-mail.', 'error', 'email');
+    return;
+  }
 
-        // Limpar mensagens de erro anteriores
-        emailError.textContent = '';
-        passwordError.textContent = '';
-        confirmPasswordError.textContent = '';
-        messageDiv.textContent = '';
-
-        const email = emailInput.value.trim();
-        const newPassword = passwordInput.value.trim();
-        const confirmPassword = confirmPasswordInput.value.trim();
-
-        let isValid = true;
-
-        // Validação de Email
-        if (email === '') {
-            emailError.textContent = 'E-mail é obrigatório.';
-            isValid = false;
-        } else if (!email.includes('@') || !email.includes('.')) {
-            emailError.textContent = 'E-mail inválido.';
-            isValid = false;
-        }
-
-        // Validação de Senha
-        if (newPassword === '') {
-            passwordError.textContent = 'Senha é obrigatória.';
-            isValid = false;
-        } else if (newPassword.length < 8) {
-            passwordError.textContent = 'A senha deve ter pelo menos 8 caracteres.';
-            isValid = false;
-        } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(newPassword)) {
-            passwordError.textContent = 'A senha deve conter pelo menos um caractere especial.';
-            isValid = false;
-        }
-
-        // Validação de Confirmação de Senha
-        if (confirmPassword === '') {
-            confirmPasswordError.textContent = 'Confirme a senha.';
-            isValid = false;
-        } else if (newPassword !== confirmPassword) {
-            confirmPasswordError.textContent = 'As senhas não coincidem.';
-            isValid = false;
-        }
-
-        // Se a validação passar, enviar a solicitação ao backend
-        if (isValid) {
-            try {
-                const response = await fetch('http://localhost:3000/api/recuperar-senha', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        email,
-                        newPassword,
-                        confirmPassword,
-                    }),
-                });
-
-                const data = await response.json();
-
-                if (response.ok) {
-                    messageDiv.textContent = data.message;
-                    messageDiv.style.color = 'green';
-                    // Redirecionar para a página de login após 2 segundos
-                    setTimeout(() => {
-                        window.location.href = './login.html';
-                    }, 2000);
-                } else {
-                    messageDiv.textContent = data.message;
-                    messageDiv.style.color = 'red';
-                }
-            } catch (error) {
-                messageDiv.textContent = 'Erro ao conectar com o servidor.';
-                messageDiv.style.color = 'red';
-                console.error('Erro:', error);
-            }
-        }
+  fetch(`${API_URL}/api/solicitar-recuperacao`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email }),
+  })
+    .then(response => {
+      if (!response.ok) {
+        return response.json().then(err => { throw new Error(err.message || 'Erro desconhecido no servidor'); });
+      }
+      return response.json();
+    })
+    .then(data => {
+      showToast(data.message, 'success', 'email');
+      showStep('code-step');
+      document.getElementById('code').focus();
+    })
+    .catch(error => {
+      console.error('Erro ao solicitar código:', error);
+      showToast(error.message, 'error', 'email');
     });
+}
+
+// Função para verificar o código
+function verifyCode() {
+  const email = document.getElementById('email').value.trim();
+  const code = document.getElementById('code').value.trim();
+
+  if (!code) {
+    showToast('Por favor, insira o código.', 'error', 'code');
+    return;
+  }
+
+  fetch(`${API_URL}/api/verificar-codigo`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email, code }),
+  })
+    .then(response => {
+      if (!response.ok) {
+        return response.json().then(err => { throw new Error(err.message || 'Erro desconhecido no servidor'); });
+      }
+      return response.json();
+    })
+    .then(data => {
+      showToast(data.message, 'success', 'code');
+      showStep('password-step');
+      document.getElementById('new-password').focus();
+      // Configurar eventos dos ícones de olho após exibir a etapa de senha
+      setupEyeEvents();
+    })
+    .catch(error => {
+      console.error('Erro ao verificar código:', error);
+      showToast(error.message, 'error', 'code');
+    });
+}
+
+// Função para redefinir a senha
+function resetPassword(event) {
+  event.preventDefault();
+
+  const email = document.getElementById('email').value.trim();
+  const code = document.getElementById('code').value.trim();
+  const newPassword = document.getElementById('new-password').value;
+  const confirmPassword = document.getElementById('confirm-password').value;
+
+  if (!newPassword || !confirmPassword) {
+    showToast('Por favor, preencha os campos de senha.', 'error', 'password');
+    return;
+  }
+
+  if (newPassword !== confirmPassword) {
+    showToast('As senhas não coincidem.', 'error', 'password');
+    return;
+  }
+
+  fetch(`${API_URL}/api/recuperar-senha`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email, code, newPassword, confirmPassword }),
+  })
+    .then(response => {
+      if (!response.ok) {
+        return response.json().then(err => { throw new Error(err.message || 'Erro desconhecido no servidor'); });
+      }
+      return response.json();
+    })
+    .then(data => {
+      showToast(data.message, 'success', 'password');
+      setTimeout(() => {
+        window.location.href = './login.html';
+      }, 2000);
+    })
+    .catch(error => {
+      console.error('Erro ao redefinir senha:', error);
+      showToast(error.message, 'error', 'password');
+    });
+}
+
+// Função para alternar visibilidade da senha
+function togglePasswordVisibility(inputId, eyeId, eyeSlashId) {
+  const passwordInput = document.getElementById(inputId);
+  const eye = document.getElementById(eyeId);
+  const eyeSlash = document.getElementById(eyeSlashId);
+
+  if (passwordInput.type === 'password') {
+    passwordInput.type = 'text';
+    eye.style.opacity = '0';
+    eyeSlash.style.opacity = '1';
+  } else {
+    passwordInput.type = 'password';
+    eye.style.opacity = '1';
+    eyeSlash.style.opacity = '0';
+  }
+}
+
+// Função para configurar eventos dos ícones de olho
+function setupEyeEvents() {
+  const passwordFields = [
+    { inputId: 'new-password', eyeId: 'eye-1', eyeSlashId: 'eye-slash-1', eyeBox: document.querySelector('#password-step .input-field:nth-child(1) .eye-box') },
+    { inputId: 'confirm-password', eyeId: 'eye-2', eyeSlashId: 'eye-slash-2', eyeBox: document.querySelector('#password-step .input-field:nth-child(2) .eye-box') }
+  ];
+
+  passwordFields.forEach((field, index) => {
+    if (field.eyeBox) {
+      // Remover eventos anteriores clonando o elemento
+      field.eyeBox.replaceWith(field.eyeBox.cloneNode(true));
+      // Reobter o elemento após clonagem
+      const newEyeBox = document.querySelector(`#password-step .input-field:nth-child(${index + 1}) .eye-box`);
+      newEyeBox.addEventListener('click', () => {
+        togglePasswordVisibility(field.inputId, field.eyeId, field.eyeSlashId);
+      });
+    } else {
+      console.error(`Erro: eye-box não encontrado para o campo ${index + 1}`);
+    }
+  });
+}
+
+// Configurar eventos
+document.addEventListener('DOMContentLoaded', () => {
+  // Mostrar apenas a etapa de e-mail inicialmente
+  showStep('email-step');
+
+  // Botão para solicitar código
+  document.getElementById('btn-request-code').addEventListener('click', requestVerificationCode);
+
+  // Botão para verificar código
+  document.getElementById('btn-verify-code').addEventListener('click', verifyCode);
+
+  // Formulário para redefinir senha
+  document.getElementById('form-recuperacao').addEventListener('submit', resetPassword);
 });

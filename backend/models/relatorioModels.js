@@ -8,56 +8,56 @@ const Relatorio = {
     const dataFimAjustada = `${dataFim} 23:59:59`;
 
     if (periodo === 'diario') {
-        query = `
+      query = `
             SELECT DATE(data_pedido) AS data, 
                    COUNT(*) AS total_pedidos, 
                    COALESCE(SUM(valor_total), 0) AS valor_total
             FROM pedidos 
             WHERE data_pedido BETWEEN ? AND ?`;
-        values = [dataInicio, dataFim];
+      values = [dataInicio, dataFim];
     } else if (periodo === 'mensal') {
-        query = `
+      query = `
             SELECT DATE_FORMAT(data_pedido, '%Y-%m') AS data, 
                    COUNT(*) AS total_pedidos, 
                    COALESCE(SUM(valor_total), 0) AS valor_total
             FROM pedidos 
             WHERE data_pedido BETWEEN ? AND ?`;
-        values = [dataInicio, dataFim];
+      values = [dataInicio, dataFim];
     } else if (periodo === 'anual') {
-        query = `
+      query = `
             SELECT YEAR(data_pedido) AS data, 
                    COUNT(*) AS total_pedidos, 
                    COALESCE(SUM(valor_total), 0) AS valor_total
             FROM pedidos 
             WHERE data_pedido BETWEEN ? AND ?`;
-        values = [dataInicio, dataFim];
+      values = [dataInicio, dataFim];
     }
 
     // Aplicar filtro de status
     if (status) {
-        query += ` AND processo_pedido = ?`;
-        values.push(status);
+      query += ` AND processo_pedido = ?`;
+      values.push(status);
     } else {
-        query += ` AND processo_pedido = 'concluido'`;
+      query += ` AND processo_pedido = 'concluido'`;
     }
 
     // Aplicar filtro de valor mínimo
     if (valorMin) {
-        query += ` AND valor_total >= ?`;
-        values.push(Number(valorMin));
+      query += ` AND valor_total >= ?`;
+      values.push(Number(valorMin));
     }
 
     // Completar a query com agrupamento
     if (periodo === 'diario') {
-        query += ` GROUP BY DATE(data_pedido) ORDER BY data DESC`;
+      query += ` GROUP BY DATE(data_pedido) ORDER BY data DESC`;
     } else if (periodo === 'mensal') {
-        query += ` GROUP BY DATE_FORMAT(data_pedido, '%Y-%m') ORDER BY data DESC`;
+      query += ` GROUP BY DATE_FORMAT(data_pedido, '%Y-%m') ORDER BY data DESC`;
     } else if (periodo === 'anual') {
-        query += ` GROUP BY YEAR(data_pedido) ORDER BY data DESC`;
+      query += ` GROUP BY YEAR(data_pedido) ORDER BY data DESC`;
     }
 
     db.query(query, values, (err, results) => {
-        callback(err, results);
+      callback(err, results);
     });
   },
 
@@ -75,8 +75,8 @@ const Relatorio = {
     let values = [dataInicio, dataFim];
 
     if (categoria) {
-        query += ` AND p.categoria = ?`;
-        values.push(categoria);
+      query += ` AND p.categoria = ?`;
+      values.push(categoria);
     }
 
     query += `
@@ -85,7 +85,7 @@ const Relatorio = {
       LIMIT 10`;
 
     db.query(query, values, (err, results) => {
-        callback(err, results);
+      callback(err, results);
     });
   },
 
@@ -104,7 +104,7 @@ const Relatorio = {
       ORDER BY valor_total DESC
       LIMIT 10`;
     db.query(query, [dataInicio, dataFim], (err, results) => {
-        callback(err, results);
+      callback(err, results);
     });
   },
 
@@ -123,7 +123,7 @@ const Relatorio = {
       GROUP BY p.categoria
       ORDER BY valor_total DESC`;
     db.query(query, [dataInicio, dataFim], (err, results) => {
-        callback(err, results);
+      callback(err, results);
     });
   },
 
@@ -137,7 +137,7 @@ const Relatorio = {
       FROM pedidos
       WHERE data_pedido BETWEEN ? AND ?`;
     db.query(query, [dataInicio, dataFim], (err, results) => {
-        callback(err, results);
+      callback(err, results);
     });
   },
 };

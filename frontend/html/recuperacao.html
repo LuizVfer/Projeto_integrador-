@@ -1,107 +1,92 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../css/recuperacao.css" />
-    <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <link rel="stylesheet" href="../css/acessibilidade.css" />
-    <title>Recuperação da sua senha</title>
-  </head>
-  <body class="background">
-    <header>
-      <div class="acessibilidade">
-        <button onclick="alterarFonte('+')">A+</button>
-        <button onclick="alterarFonte('-')">A-</button>
-        <button onclick="alterarFonte('reset')">A</button>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recuperação de Senha</title>
+  <link rel="stylesheet" href="../css/recuperacao.css" />
+  <link rel="stylesheet" href="../css/toast.css" />
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+</head>
+
+<body class="background">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="box">
+      <div class="top-header">
+        <h3>Recuperação de Senha</h3>
       </div>
-    </header>
-
-    <div class="overlay"></div>
-    <div class="container">
-      <div class="box">
-        <div class="top-header">
-          <h3>Recuperação de Senha</h3>
-        </div>
-        <form class="input-group" id="recuperacao-form">
-          <!-- Campo de Email -->
-          <div class="input-field">
-            <input type="email" class="input-box" id="email" required />
-            <label for="email">Digite seu e-mail</label>
-            <div id="emailError" class="error-message"></div>
+      <form id="form-recuperacao">
+        <!-- Etapa 1: Campo de e-mail -->
+        <div id="email-step" class="step">
+          <div class="input-group">
+            <div class="input-field">
+              <input type="email" class="input-box" id="email" required />
+              <label for="email">Digite seu e-mail</label>
+            </div>
+            <div class="error-message" id="error-message-email"></div>
+            <button type="button" class="input-submit" id="btn-request-code">Solicitar Código</button>
           </div>
-
-          <!-- Campo de Nova Senha -->
-          <div class="input-field">
-            <input type="password" class="input-box" id="password" required />
-            <label for="password">Digite sua nova senha</label>
-            <div class="eye-area">
-              <div
-                class="eye-box"
-                onclick="myRegPassword('password', 'eye-1', 'eye-slash-1')"
-              >
-                <i class="fa-regular fa-eye" id="eye-1"></i>
-                <i class="fa-regular fa-eye-slash" id="eye-slash-1"></i>
+        </div>
+        <!-- Etapa 2: Campo de código -->
+        <div id="code-step" class="step" style="display: none;">
+          <div class="input-group">
+            <div class="input-field">
+              <input type="text" class="input-box" id="code" required />
+              <label for="code">Código de Verificação</label>
+            </div>
+            <div class="error-message" id="error-message-code"></div>
+            <button type="button" class="input-submit" id="btn-verify-code">Verificar Código</button>
+          </div>
+        </div>
+        <!-- Etapa 3: Campos de senha -->
+        <div id="password-step" class="step" style="display: none;">
+          <div class="input-group">
+            <div class="input-field">
+              <input type="password" class="input-box" id="new-password" required />
+              <label for="new-password">Digite sua nova senha</label>
+              <div class="eye-area">
+                <div class="eye-box">
+                  <i class="fa-solid fa-eye" id="eye-1"></i>
+                  <i class="fa-solid fa-eye-slash" id="eye-slash-1"></i>
+                </div>
               </div>
             </div>
-            <div id="passwordError" class="error-message"></div>
-          </div>
-
-          <!-- Campo de Confirmação de Senha -->
-          <div class="input-field">
-            <input
-              type="password"
-              class="input-box"
-              id="confirm-password"
-              required
-            />
-            <label for="confirm-password">Confirme sua nova senha</label>
-            <div class="eye-area">
-              <div
-                class="eye-box"
-                onclick="myRegPassword('confirm-password', 'eye-2', 'eye-slash-2')"
-              >
-                <i class="fa-regular fa-eye" id="eye-2"></i>
-                <i class="fa-regular fa-eye-slash" id="eye-slash-2"></i>
+            <div class="input-field">
+              <input type="password" class="input-box" id="confirm-password" required />
+              <label for="confirm-password">Confirme sua nova senha</label>
+              <div class="eye-area">
+                <div class="eye-box">
+                  <i class="fa-solid fa-eye" id="eye-2"></i>
+                  <i class="fa-solid fa-eye-slash" id="eye-slash-2"></i>
+                </div>
               </div>
             </div>
-            <div id="confirmPasswordError" class="error-message"></div>
+            <div class="error-message" id="error-message-password"></div>
+            <button type="submit" class="input-submit" id="btn-submit">Recuperar Senha</button>
           </div>
-
-          <!-- Mensagem Geral -->
-          <div id="message" class="message"></div>
-
-          <!-- Botão de Submissão -->
-          <button type="submit" class="input-submit" value="recuperar">
-            Recuperar Senha
-          </button>
-        </form>
-        <div class="back-to-login">
-          <p><a href="./login.html">Voltar para o Login</a></p>
         </div>
+      </form>
+      <div class="back-to-login">
+        <a href="./login.html">Voltar para o Login</a>
       </div>
     </div>
+  </div>
+  <div class="toast-container" id="toast-container"></div>
+  <script src="../js/recuperacao.js"></script>
 
-    <script src="../js/recuperacao.js"></script>
-
-    <div vw class="enabled">
-      <div vw-access-button class="active"></div>
-      <div vw-plugin-wrapper>
-        <div class="vw-plugin-top-wrapper"></div>
-      </div>
+  <div vw class="enabled">
+    <div vw-access-button class="active" aria-label="Ativar acessibilidade VLibras"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
     </div>
+  </div>
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script>
+    new window.VLibras.Widget("https://vlibras.gov.br/app");
+  </script>
+</body>
 
-    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-    <script>
-      new window.VLibras.Widget("https://vlibras.gov.br/app");
-    </script>
-    <script src="../js/acessibilidade.js"></script>
-  </body>
 </html>

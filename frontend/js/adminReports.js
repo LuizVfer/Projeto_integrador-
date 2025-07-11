@@ -1,36 +1,50 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const btnGerarRelatorios = document.getElementById('btn-gerar-relatorios');
+    const btnGerarRelatorios = document.getElementById('gerar-relatorios');
     const btnExportarPdf = document.getElementById('exportar-pdf');
     const dataInicioInput = document.getElementById('relatorio-data-inicio');
     const dataFimInput = document.getElementById('relatorio-data-fim');
 
-    // Verificar se os elementos existem
     if (!btnGerarRelatorios) {
-        console.error('Botão btn-gerar-relatorios não encontrado');
+        console.warn('Botão gerar-relatorios não encontrado');
         return;
     }
     if (!btnExportarPdf) {
-        console.error('Botão exportar-pdf não encontrado');
+        console.warn('Botão exportar-pdf não encontrado');
         return;
     }
     if (!dataInicioInput) {
-        console.error('Input relatorio-data-inicio não encontrado');
+        console.warn('Input relatorio-data-inicio não encontrado');
         return;
     }
     if (!dataFimInput) {
-        console.error('Input relatorio-data-fim não encontrado');
+        console.warn('Input relatorio-data-fim não encontrado');
         return;
     }
 
     btnGerarRelatorios.addEventListener('click', gerarRelatorios);
     btnExportarPdf.addEventListener('click', exportarPdfRelatorios);
 
-    // Depurar mudanças nos inputs
-    dataInicioInput.addEventListener('change', () => {
-    });
-    dataFimInput.addEventListener('change', () => {
-    });
+    dataInicioInput.addEventListener('change', () => { });
+    dataFimInput.addEventListener('change', () => { });
 });
+
+// Função para exibir notificações toast
+function showToast(message, type = 'error') {
+    const toastContainer = document.getElementById('toast-container');
+    if (!toastContainer) {
+        console.error('Contêiner de toast não encontrado.');
+        return;
+    }
+    const toast = document.createElement('div');
+    toast.classList.add('toast', type);
+    toast.textContent = message;
+    toastContainer.appendChild(toast);
+    setTimeout(() => toast.classList.add('show'), 100);
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
+}
 
 async function gerarRelatorios() {
     const periodo = document.getElementById('relatorio-periodo').value;
@@ -41,12 +55,12 @@ async function gerarRelatorios() {
     const valorMin = document.getElementById('filtro-valor-min').value;
 
     if (!dataInicio || !dataFim) {
-        alert('Por favor, selecione as datas de início e fim.');
+        showToast('Por favor, selecione as datas de início e fim.', 'error');
         return;
     }
 
     if (new Date(dataFim) < new Date(dataInicio)) {
-        alert('A data de fim deve ser posterior à data de início.');
+        showToast('A data de fim deve ser posterior à data de início.', 'error');
         return;
     }
 
@@ -55,7 +69,7 @@ async function gerarRelatorios() {
         let vendasUrl = `${API_URL}/relatorios/vendas?periodo=${periodo}&dataInicio=${dataInicio}&dataFim=${dataFim}`;
         if (status) vendasUrl += `&status=${status}`;
         if (valorMin) vendasUrl += `&valorMin=${valorMin}`;
-        
+
         const vendasResponse = await fetch(vendasUrl, {
             headers: { 'Authorization': `Bearer ${getToken()}` }
         });
@@ -91,9 +105,10 @@ async function gerarRelatorios() {
         if (!taxaResponse.ok) throw new Error('Erro na requisição de taxa');
         const taxa = await taxaResponse.json();
         exibirTaxaCancelamento(taxa);
+        showToast('Relatórios gerados com sucesso!', 'success');
     } catch (err) {
         console.error('Erro ao gerar relatórios:', err);
-        alert('Erro ao gerar relatórios: ' + err.message);
+        showToast('Erro ao gerar relatórios: ' + err.message, 'error');
     }
 }
 
@@ -191,18 +206,42 @@ function exibirTaxaCancelamento(taxa) {
 }
 
 function exportarPdfRelatorios() {
+    if (!window.jspdf || !window.jspdf.jsPDF) {
+        console.error('Biblioteca jsPDF não carregada.');
+        showToast('Erro: biblioteca jsPDF não carregada.', 'error');
+        return;
+    }
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
     let y = 10;
 
-     // Adicionar logo
+    const vendasTabela = document.getElementById('vendas-tabela');
+    const produtosTabela = document.getElementById('produtos-tabela');
+    const usuariosTabela = document.getElementById('usuarios-tabela');
+    const categoriasTabela = document.getElementById('categorias-tabela');
+    const taxaText = document.getElementById('taxa-text');
+
+    if (!vendasTabela || !produtosTabela || !usuariosTabela || !categoriasTabela || !taxaText) {
+        console.error('Elementos necessários para exportação não encontrados.');
+        showToast('Erro: elementos necessários para exportação não encontrados.', 'error');
+        return;
+    }
+
+    // Adicionar logo
     const logo = '../../images/logo_2.jpg'; // Substitua pelo caminho do seu logo
     const logoWidth = 40; // Largura do logo em mm
     const logoHeight = 40; // Altura do logo em mm
     const pageWidth = doc.internal.pageSize.getWidth();
     const xPosition = (pageWidth - logoWidth) / 2; // Centralizar o logo
-    doc.addImage(logo, 'JPG', xPosition, y, logoWidth, logoHeight);
-    y += logoHeight + 10; // Ajustar a posição y para o conteúdo seguinte
+
+    try {
+        doc.addImage(logo, 'JPG', xPosition, y, logoWidth, logoHeight);
+        y += logoHeight + 10;
+    } catch (err) {
+        console.warn('Erro ao carregar logo:', err);
+        showToast('Aviso: não foi possível carregar o logo no PDF.', 'warning');
+        y += 10;
+    }
 
     // Título
     doc.setFontSize(16);
@@ -213,7 +252,6 @@ function exportarPdfRelatorios() {
     doc.setFontSize(12);
     doc.text('Vendas por Período', 10, y);
     y += 5;
-    const vendasTabela = document.getElementById('vendas-tabela');
     const vendasRows = Array.from(vendasTabela.querySelectorAll('tbody tr')).map(tr => {
         const cols = tr.querySelectorAll('td');
         return [cols[0].textContent, cols[1].textContent, cols[2].textContent];
@@ -233,7 +271,6 @@ function exportarPdfRelatorios() {
     // Produtos
     doc.text('Produtos Mais Vendidos', 10, y);
     y += 5;
-    const produtosTabela = document.getElementById('produtos-tabela');
     const produtosRows = Array.from(produtosTabela.querySelectorAll('tbody tr')).map(tr => {
         const cols = tr.querySelectorAll('td');
         return [cols[0].textContent, cols[1].textContent, cols[2].textContent, cols[3].textContent];
@@ -253,7 +290,6 @@ function exportarPdfRelatorios() {
     // Usuários
     doc.text('Usuários que Mais Compraram', 10, y);
     y += 5;
-    const usuariosTabela = document.getElementById('usuarios-tabela');
     const usuariosRows = Array.from(usuariosTabela.querySelectorAll('tbody tr')).map(tr => {
         const cols = tr.querySelectorAll('td');
         return [cols[0].textContent, cols[1].textContent, cols[2].textContent];
@@ -273,7 +309,6 @@ function exportarPdfRelatorios() {
     // Categorias
     doc.text('Desempenho por Categoria', 10, y);
     y += 5;
-    const categoriasTabela = document.getElementById('categorias-tabela');
     const categoriasRows = Array.from(categoriasTabela.querySelectorAll('tbody tr')).map(tr => {
         const cols = tr.querySelectorAll('td');
         return [cols[0].textContent, cols[1].textContent, cols[2].textContent, cols[3].textContent];
@@ -293,9 +328,15 @@ function exportarPdfRelatorios() {
     // Taxa de Cancelamento
     doc.text('Taxa de Cancelamento', 10, y);
     y += 5;
-    const taxaText = document.getElementById('taxa-text').innerHTML.replace(/<br>/g, '\n');
-    doc.text(taxaText, 10, y);
+    const taxaTextContent = taxaText.innerHTML.replace(/<br>/g, '\n');
+    doc.text(taxaTextContent, 10, y);
 
     // Salvar o PDF
-    doc.save('relatorios.pdf');
+    try {
+        doc.save('relatorios.pdf');
+        showToast('Relatórios exportados para PDF com sucesso!', 'success');
+    } catch (err) {
+        console.error('Erro ao exportar PDF:', err);
+        showToast('Erro ao exportar relatórios para PDF.', 'error');
+    }
 }

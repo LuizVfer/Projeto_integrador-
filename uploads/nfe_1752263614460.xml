@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notaFiscal>
+  <emitente>
+    <cnpj>12345678000199</cnpj>
+    <razaoSocial>Empresa Teste LTDA</razaoSocial>
+  </emitente>
+  <destinatario>
+    <cpf>98765432100</cpf>
+    <nome>Cliente Exemplo</nome>
+  </destinatario>
+  <itens>
+    <!-- PRODUTOS EXISTENTES -->
+    <item>
+      <nome>COCA - LATA</nome>
+      <codigoBarras>5365889347451</codigoBarras>
+      <quantidade>10</quantidade>
+      <valorUnitario>5.00</valorUnitario>
+    </item>
+    <item>
+      <nome>SKOL - LATA</nome>
+      <codigoBarras>7084486602739</codigoBarras>
+      <quantidade>15</quantidade>
+      <valorUnitario>4.50</valorUnitario>
+    </item>
+    <item>
+      <nome>FANTA - LATA</nome>
+      <codigoBarras>3050865653771</codigoBarras>
+      <quantidade>12</quantidade>
+      <valorUnitario>4.75</valorUnitario>
+    </item>
+    <item>
+      <nome>SRITE - LATA</nome>
+      <codigoBarras>5013760807715</codigoBarras>
+      <quantidade>20</quantidade>
+      <valorUnitario>4.80</valorUnitario>
+    </item>
+    <item>
+      <nome>HEINEKEN - LATA</nome>
+      <codigoBarras>3210987654326</codigoBarras>
+      <quantidade>5</quantidade>
+      <valorUnitario>6.00</valorUnitario>
+    </item>
+
+    <!-- PRODUTOS NÃO EXISTENTES -->
+    <item>
+      <nome>SUCO DE UVA - LATA</nome>
+      <codigoBarras>6023879543207</codigoBarras>
+      <quantidade>8</quantidade>
+      <valorUnitario>3.90</valorUnitario>
+    </item>
+    <item>
+      <nome>GUARANÁ - LATA</nome>
+      <codigoBarras>2786439081260</codigoBarras>
+      <quantidade>10</quantidade>
+      <valorUnitario>4.00</valorUnitario>
+    </item>
+    <item>
+      <nome>ÁGUA MINERAL - LATA</nome>
+      <codigoBarras>8391027456392</codigoBarras>
+      <quantidade>30</quantidade>
+      <valorUnitario>2.50</valorUnitario>
+    </item>
+    <item>
+      <nome>CAFÉ GELADO - LATA</nome>
+      <codigoBarras>1836209874511</codigoBarras>
+      <quantidade>6</quantidade>
+      <valorUnitario>5.20</valorUnitario>
+    </item>
+    <item>
+      <nome>ENERGÉTICO - LATA</nome>
+      <codigoBarras>9082736451823</codigoBarras>
+      <quantidade>9</quantidade>
+      <valorUnitario>6.50</valorUnitario>
+    </item>
+  </itens>
+</notaFiscal>

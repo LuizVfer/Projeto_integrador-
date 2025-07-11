@@ -1,94 +1,96 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nome do Site - Home</title>
-    <link rel="stylesheet" href="../css/home.css" />
-    <link rel="stylesheet" href="../css/acessibilidade.css" />
-    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
-  </head>
-  <body>
-    <header>
-      <div class="logo">
-        <img src="/images/logo_navbar.jpg" alt="logo_navbar" />
-      </div>
-      <nav>
-        <ul>
-          <li>
-            <a href="login.html" target="_blank" rel="noopener noreferrer"
-              >QRUp-Delivery</a
-            >
-          </li>
-          <li><a href="contato.html">Contato</a></li>
-        </ul>
-      </nav>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nome do Site - Home</title>
+  <link rel="stylesheet" href="../css/home.css" />
+  <link rel="stylesheet" href="../css/toast.css">
+  <link rel="stylesheet" href="../css/acessibilidade.css" />
+  <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+</head>
+
+<body>
+  <header>
+    <div class="logo">
+      <img src="/images/logo_navbar.jpg" alt="logo_navbar" />
+    </div>
+    <nav>
+      <ul>
+        <li>
+          <a href="login.html" target="_blank" rel="noopener noreferrer">QRUp-Delivery</a>
+        </li>
+        <li><a href="contato.html">Contato</a></li>
+      </ul>
+    </nav>
+    <div class="acessibilidade">
       <div class="acessibilidade">
-        <div class="acessibilidade">
-          <button onclick="alterarFonte('+')">A+</button>
-          <button onclick="alterarFonte('-')">A-</button>
-          <button onclick="alterarFonte('reset')">A</button>
-        </div>
-      </div>
-    </header>
-
-    <section class="hero">
-      <h1>Bem-vindo ao QRUp</h1>
-      <p>
-        Conecte-se com seus clientes de forma rápida, moderna e sem
-        complicações! Com o QRUP, seu comércio ganha agilidade no atendimento e
-        oferece uma experiência única através de QR Codes inteligentes.
-        Praticidade, inovação e eficiência em um só lugar!
-      </p>
-    </section>
-
-    <section class="sobre">
-      <h2>Quem Somos!</h2>
-      <p>
-        Somos Franciele, Felipe, Luiz e Pedro — quatro estudantes do curso de
-        Análise e Desenvolvimento de Sistemas na INSTED, em Campo Grande - MS. O
-        QRUP nasceu como um projeto acadêmico com um propósito real: facilitar e
-        modernizar a comunicação entre comércios e clientes. Combinamos nossas
-        ideias, conhecimentos e muita dedicação para criar uma solução prática,
-        inovadora e eficiente. Esse é só o começo da nossa jornada, e estamos
-        prontos para ir além!
-      </p>
-    </section>
-    <section class="fundadores">
-      <h2>Fundadores</h2>
-      <div class="fundadores-container">
-        <div class="fundador">
-          <img src="/images/fran.jpg" alt="Fundador 1" />
-          <p>Franciele</p>
-        </div>
-        <div class="fundador">
-          <img src="/images/felipe.jpg" alt="Fundador 2" />
-          <p>Felipe</p>
-        </div>
-        <div class="fundador">
-          <img src="/images/luiz.jpg" alt="Fundador 3" />
-          <p>Luiz</p>
-        </div>
-        <div class="fundador">
-          <img src="/images/pedro.jpg" alt="Fundador 4" />
-          <p>Pedro</p>
-        </div>
-      </div>
-    </section>
-
-    <footer>
-      <p>&copy; 2025 QRUp. Todos os direitos reservados.</p>
-    </footer>
-    <div vw class="enabled">
-      <div vw-access-button class="active"></div>
-      <div vw-plugin-wrapper>
-        <div class="vw-plugin-top-wrapper"></div>
+        <button onclick="alterarFonte('+')">A+</button>
+        <button onclick="alterarFonte('-')">A-</button>
+        <button onclick="alterarFonte('reset')">A</button>
       </div>
     </div>
-    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-    <script>
-      new window.VLibras.Widget("https://vlibras.gov.br/app");
-    </script>
-    <script src="../js/acessibilidade.js"></script>
-  </body>
+  </header>
+
+  <section class="hero">
+    <h1>Bem-vindo ao QRUp</h1>
+    <p>
+      Conecte-se com seus clientes de forma rápida, moderna e sem
+      complicações! Com o QRUP, seu comércio ganha agilidade no atendimento e
+      oferece uma experiência única através de QR Codes inteligentes.
+      Praticidade, inovação e eficiência em um só lugar!
+    </p>
+  </section>
+
+  <section class="sobre">
+    <h2>Quem Somos!</h2>
+    <p>
+      Somos Franciele, Felipe, Luiz e Pedro — quatro estudantes do curso de
+      Análise e Desenvolvimento de Sistemas na INSTED, em Campo Grande - MS. O
+      QRUP nasceu como um projeto acadêmico com um propósito real: facilitar e
+      modernizar a comunicação entre comércios e clientes. Combinamos nossas
+      ideias, conhecimentos e muita dedicação para criar uma solução prática,
+      inovadora e eficiente. Esse é só o começo da nossa jornada, e estamos
+      prontos para ir além!
+    </p>
+  </section>
+  <section class="fundadores">
+    <h2>Fundadores</h2>
+    <div class="fundadores-container">
+      <div class="fundador">
+        <img src="/images/fran.jpg" alt="Fundador 1" />
+        <p>Franciele</p>
+      </div>
+      <div class="fundador">
+        <img src="/images/felipe.jpg" alt="Fundador 2" />
+        <p>Felipe</p>
+      </div>
+      <div class="fundador">
+        <img src="/images/luiz.jpg" alt="Fundador 3" />
+        <p>Luiz</p>
+      </div>
+      <div class="fundador">
+        <img src="/images/pedro.jpg" alt="Fundador 4" />
+        <p>Pedro</p>
+      </div>
+    </div>
+  </section>
+  <div class="toast-container" id="toast-container"></div>
+  <footer>
+    <p>&copy; 2025 QRUp. Todos os direitos reservados.</p>
+  </footer>
+  <div vw class="enabled">
+    <div vw-access-button class="active" aria-label="Ativar acessibilidade VLibras"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
+    </div>
+  </div>
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script>
+    new window.VLibras.Widget("https://vlibras.gov.br/app");
+  </script>
+  <script src="../js/acessibilidade.js"></script>
+</body>
+
 </html>

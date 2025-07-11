@@ -1,10 +1,10 @@
 const db = require('../config/db.js');
 
 const Produto = {
-  create: (titulo, preco, imagem, categoria) => {
+  create: (titulo, preco, imagem, categoria, barcode, quantidade_estoque) => {
     return new Promise((resolve, reject) => {
-      const query = 'INSERT INTO produtos (titulo, preco, imagem, categoria, data_produto) VALUES (?, ?, ?, ?, NOW())';
-      db.query(query, [titulo, preco, imagem, categoria], (err, results) => {
+      const query = 'INSERT INTO produtos (titulo, preco, imagem, categoria, barcode, quantidade_estoque, data_produto) VALUES (?, ?, ?, ?, ?, ?, NOW())';
+      db.query(query, [titulo, preco, imagem, categoria, barcode, quantidade_estoque], (err, results) => {
         err ? reject(err) : resolve(results);
       });
     });
@@ -23,6 +23,15 @@ const Produto = {
     return new Promise((resolve, reject) => {
       const query = 'SELECT * FROM produtos WHERE produto_id = ?';
       db.query(query, [id], (err, results) => {
+        err ? reject(err) : resolve(results);
+      });
+    });
+  },
+
+  findByBarcode: (barcode) => {
+    return new Promise((resolve, reject) => {
+      const query = 'SELECT * FROM produtos WHERE barcode = ?';
+      db.query(query, [barcode], (err, results) => {
         err ? reject(err) : resolve(results);
       });
     });
@@ -51,18 +60,51 @@ const Produto = {
     });
   },
 
-  update: (id, titulo, preco, imagem, categoria) => {
+  update: (id, titulo, preco, imagem, categoria, barcode, quantidade_estoque) => {
     return new Promise((resolve, reject) => {
-      const query = 'UPDATE produtos SET titulo = ?, preco = ?, imagem = ?, categoria = ? WHERE produto_id = ?';
-      db.query(query, [titulo, preco, imagem, categoria, id], (err, results) => {
+      const query = 'UPDATE produtos SET titulo = ?, preco = ?, imagem = ?, categoria = ?, barcode = ?, quantidade_estoque = ? WHERE produto_id = ?';
+      db.query(query, [titulo, preco, imagem, categoria, barcode, quantidade_estoque, id], (err, results) => {
         err ? reject(err) : resolve(results);
       });
     });
   },
 
-  delete: (id) => {
+  incrementStock: (barcode, quantidade) => {
     return new Promise((resolve, reject) => {
-      const query = 'DELETE FROM produtos WHERE produto_id = ?';
+      const query = 'UPDATE produtos SET quantidade_estoque = quantidade_estoque + ? WHERE barcode = ?';
+      db.query(query, [quantidade, barcode], (err, results) => {
+        if (err) {
+          reject(err);
+        } else if (results.affectedRows === 0) {
+          reject(new Error('Produto não encontrado'));
+        } else {
+          resolve(results);
+        }
+      });
+    });
+  },
+
+  createTempProduct: (nome, barcode, valor_unitario, quantidade) => {
+    return new Promise((resolve, reject) => {
+      const query = 'INSERT INTO produtos_temporarios (nome, barcode, valor_unitario, quantidade) VALUES (?, ?, ?, ?)';
+      db.query(query, [nome, barcode, valor_unitario, quantidade], (err, results) => {
+        err ? reject(err) : resolve(results);
+      });
+    });
+  },
+
+  findAllTempProducts: () => {
+    return new Promise((resolve, reject) => {
+      const query = 'SELECT * FROM produtos_temporarios';
+      db.query(query, [], (err, results) => {
+        err ? reject(err) : resolve(results);
+      });
+    });
+  },
+
+  deleteTempProduct: (id) => {
+    return new Promise((resolve, reject) => {
+      const query = 'DELETE FROM produtos_temporarios WHERE id = ?';
       db.query(query, [id], (err, results) => {
         err ? reject(err) : resolve(results);
       });
